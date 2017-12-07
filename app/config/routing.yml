@@ -6,8 +6,4 @@ core:
 search:
     resource: "@SearchBundle/Controller/"
     type:     annotation
-    prefix:   /
-
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+    prefix:   /search
