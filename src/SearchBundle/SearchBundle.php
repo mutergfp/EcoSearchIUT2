@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace SearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class SearchBundle extends Bundle
 {
 }
