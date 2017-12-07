@@ -10,4 +10,7 @@ namespace SearchBundle\Repository;
  */
 class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getByTags($tags){
+        
+    }
 }
