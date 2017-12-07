@@ -3,8 +3,8 @@
 <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %} - EcoSearch</title>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,8 +15,10 @@
         {% block header %}{% endblock %}
     </header>
 
-    <div class="container">
-    {% block content %}{% endblock %}
+    <div class="content">
+        <div class="container">
+        {% block content %}{% endblock %}
+        </div>
     </div>
 
     <footer>
