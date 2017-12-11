@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{research}")
+     * @Route("/{research}", name="search", defaults={"research" = ""})
      */
     public function searchAction($research)
     {
-        $tags_string = explode('_',$research);
+        $tags_string = explode(" ", urldecode($research));
         $repository_tag = $this->getDoctrine()->getRepository('SearchBundle:Tag');
         $tags = array();
         foreach ($tags_string as $tag_string)
@@ -27,6 +27,9 @@ class DefaultController extends Controller
         }
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
         $produits = $repository_produit->getByTags($tags);
-        return new Response(var_dump($tags_string));
+
+        return $this->render('SearchBundle:Default:search.html.twig', array(
+            "produits" => $produits
+        ));
     }
 }
