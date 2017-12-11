@@ -163,6 +163,20 @@ class loadEcoSearch implements FixtureInterface
 
 
 		$briquesDeLait->setDepot($depotJaune);
+		$bouteillesEnVerre->setDepot($depotVerre);
+		$bouchons->setDepot($depotVerre);
+		$bouteillesEnPlastique->setDepot($depotJaune);
+		$televisions->setDepot($dechetterie);
+		$medicaments->setDepot($pharmacie);
+		$seringues->setDepot($pharmacie);
+		$bois->setDepot($dechetterie);
+		$piles->setDepot($magasin);
+		$sachethe->setDepot($depotNoir);
+		$ampoules->setDepot($magasin);
+		$miroir->setDepot($dechetterie);
+		$livre->setDepot($depotJaune);
+		$rasoir->setDepot($depotJaune);
+		$magazine->setDepot($depotJaune);
 		
 		/* DEBUT Persistance de tous les objets */
 		
