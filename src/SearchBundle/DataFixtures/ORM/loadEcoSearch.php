@@ -44,82 +44,7 @@ class loadEcoSearch implements FixtureInterface
           /* FIN Dépots */
 
 
-
-		/* DEBUT Produits */
-		
-		// Objets 
-		$briquesDeLait = new Produit();
-		$briquesDeLait->setName("Brique de lait");
-		$briquesDeLait->setDepot($depotJaune);
-		$bouteillesDeLait = new Produit();
-		$bouteillesDeLait->setName("Bouteille de lait");
-		$bouteillesDeLait->setDepot($depotJaune);
-		$bouteillesEnVerre = new Produit();
-		$bouteillesEnVerre->setName("Bouteille en verre");
-		$bouteillesEnVerre->setDepot($depotVerre);
-		$bouchons = new Produit();
-		$bouchons->setName("Bouchon");
-		$bouchons->setDepot($depotVerre);
-		$bouteillesEnPlastique = new Produit();
-		$bouteillesEnPlastique->setName("Bouteille en plastique");
-		$bouteillesEnPlastique->setDepot($depotJaune);
-		$televisions = new Produit();
-		$televisions->setName("Television");
-		$televisions->setDepot($dechetterie);
-		$medicaments = new Produit();
-		$medicaments->setName("Medicaments");
-		$medicaments->setDepot($pharmacie);
-		$seringues = new Produit();
-		$seringues->setName("Seringues");
-		$seringues->setDepot($pharmacie);
-		$ampoules = new Produit();
-		$ampoules->setName("Ampoules");
-		$ampoules->setDepot($magasin);
-		$piles = new Produit();
-		$piles->setName("Piles");
-		$piles->setDepot($magasin);
-		$sachethe = new Produit();
-		$sachethe->setName("Sachet de thé");
-		$sachethe->setDepot($depotNoir);
-		$bois = new Produit();
-		$bois->setName("Bois");
-		$bois->setDepot($dechetterie);
-		$miroir = new Produit();
-		$miroir->setName("Miroir");
-		$miroir->setDepot($dechetterie);
-		$livre = new Produit();
-		$livre->setName("Livre");
-		$livre->setDepot($depotJaune);
-		$rasoir = new Produit();
-		$rasoir->setName("Rasoir");
-		$rasoir->setDepot($depotJaune);
-		$magazine = new Produit();
-		$magazine->setName("Magazine");
-		$magazine->setDepot($depotJaune);
-		
-		
-		//Persistance
-		$manager->persist($briquesDeLait);
-		$manager->persist($bouteillesDeLait);
-		$manager->persist($bouteillesEnVerre);
-		$manager->persist($bouchons);
-		$manager->persist($bouteillesEnPlastique);
-		$manager->persist($televisions);
-		$manager->persist($medicaments);
-		$manager->persist($seringues);
-		$manager->persist($ampoules);
-		$manager->persist($piles);
-		$manager->persist($sachethe);
-		$manager->persist($bois);
-		$manager->persist($miroir);
-		$manager->persist($livre);
-		$manager->persist($rasoir);
-		$manager->persist($magazine);
-
-		/* FIN Produits */
-
-
-		/* DEBUT tag */
+          /* DEBUT tag */
           $tagBouteille = new Tag();
           $tagBouteille->setNom("bouteille");
           $tagLait = new Tag();
@@ -154,33 +79,121 @@ class loadEcoSearch implements FixtureInterface
           $tagRasoir->setNom("rasoir");
           $tagMagazine = new Tag();
           $tagMagazine->setNom("magazine");
+          
 
           /* FIN tag */
 
-          /* AJOUT DES TAG */
-          $briquesDeLait->addTag($tagBrique);
-          $briquesDeLait->addTag($tagLait);
-          $bouteillesEnVerre->addTag($tagVerre);
-          $bouchons->addTag($tagBouchons);
-          $bouteillesEnPlastique->addTag($tagBouteille);
-          $bouteillesEnPlastique->addTag($tagPlastique);
-          $televisions->addTag($tagTelevisions);
-          $medicaments->addTag($tagMedicaments);
-          $seringues->addTag($tagSeringues);
-          $ampoules->addTag($tagAmpoules);
-          $piles->addTag($tagPiles);
-          $sachethe->addTag($tagThe);
-          $bois->addTag($tagBois);
-          $miroir->addTag($tagMiroir);
-          $livre->addTag($tagLivre);
-          $rasoir->addTag($tagRasoir);
-          $magazine->addTag($tagMagazine);
 
 
 
 
+		/* DEBUT Produits */
+		
+		// Objets 
+		$briquesDeLait = new Produit();
+		$briquesDeLait->setName("Brique de lait");
+		$briquesDeLait->setDepot($depotJaune);
+		$briquesDeLait->addTag($tagBrique);
+		$briquesDeLait->addTag($tagLait);
 
+		$bouteillesDeLait = new Produit();
+		$bouteillesDeLait->setName("Bouteille de lait");
+		$bouteillesDeLait->setDepot($depotJaune);
+		$bouteillesDeLait->addTag($tagLait);
+		$bouteillesDeLait->addTag($tagBouteille);
 
+		$bouteillesEnVerre = new Produit();
+		$bouteillesEnVerre->setName("Bouteille en verre");
+		$bouteillesEnVerre->setDepot($depotVerre);
+		$bouteillesEnVerre->addTag($tagVerre);
+		$bouteillesEnVerre->addTag($tagBouteille);
+
+		$bouchons = new Produit();
+		$bouchons->setName("Bouchon");
+		$bouchons->setDepot($depotNoir);
+		$bouchons->addTag($tagBouchons);
+
+		$bouteillesEnPlastique = new Produit();
+		$bouteillesEnPlastique->setName("Bouteille en plastique");
+		$bouteillesEnPlastique->setDepot($depotJaune);
+		$bouteillesEnPlastique->addTag($tagBouteille);
+		$bouteillesEnPlastique->addTag($tagPlastique);
+
+		$televisions = new Produit();
+		$televisions->setName("Television");
+		$televisions->setDepot($dechetterie);
+		$televisions->addTag($tagTelevisions);
+
+		$medicaments = new Produit();
+		$medicaments->setName("Medicaments");
+		$medicaments->setDepot($pharmacie);
+		$medicaments->addTag($tagMedicaments);
+
+		$seringues = new Produit();
+		$seringues->setName("Seringues");
+		$seringues->setDepot($pharmacie);
+		$seringues->addTag($tagSeringues);
+
+		$ampoules = new Produit();
+		$ampoules->setName("Ampoules");
+		$ampoules->setDepot($magasin);
+		$ampoules->addTag($tagAmpoules);
+
+		$piles = new Produit();
+		$piles->setName("Piles");
+		$piles->setDepot($magasin);
+		$piles->addTag($tagPiles);
+
+		$sachethe = new Produit();
+		$sachethe->setName("Sachet de thé");
+		$sachethe->setDepot($depotNoir);
+		$sachethe->addTag($tagThe);
+
+		$bois = new Produit();
+		$bois->setName("Bois");
+		$bois->setDepot($dechetterie);
+		$bois->addTag($tagBois);
+
+		$miroir = new Produit();
+		$miroir->setName("Miroir");
+		$miroir->setDepot($dechetterie);
+		$miroir->addTag($tagMiroir);
+
+		$livre = new Produit();
+		$livre->setName("Livre");
+		$livre->setDepot($depotJaune);
+		$livre->addTag($tagLivre);
+
+		$rasoir = new Produit();
+		$rasoir->setName("Rasoir");
+		$rasoir->setDepot($depotJaune);
+		$rasoir->addTag($tagRasoir);
+
+		$magazine = new Produit();
+		$magazine->setName("Magazine");
+		$magazine->setDepot($depotJaune);
+		$magazine->addTag($tagMagazine);
+		
+		
+		//Persistance
+		$manager->persist($briquesDeLait);
+		$manager->persist($bouteillesDeLait);
+		$manager->persist($bouteillesEnVerre);
+		$manager->persist($bouchons);
+		$manager->persist($bouteillesEnPlastique);
+		$manager->persist($televisions);
+		$manager->persist($medicaments);
+		$manager->persist($seringues);
+		$manager->persist($ampoules);
+		$manager->persist($piles);
+		$manager->persist($sachethe);
+		$manager->persist($bois);
+		$manager->persist($miroir);
+		$manager->persist($livre);
+		$manager->persist($rasoir);
+		$manager->persist($magazine);
+
+		/* FIN Produits */
 
 		
 		/* DEBUT Persistance de tous les objets */
