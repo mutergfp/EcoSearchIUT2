@@ -112,7 +112,7 @@ class loadEcoSearch implements FixtureInterface
 		$bouchons->setName("Bouchon");
 		$bouchons->setDepot($depotNoir);
 		$bouchons->addTag($tagBouchons);
-		$bouchons->setPhoto("Bouchon.jpg");
+		$bouchons->setPhoto("bundles/search/images/Bouchon.jpg");
 
 		$bouteillesEnPlastique = new Produit();
 		$bouteillesEnPlastique->setName("Bouteille en plastique");

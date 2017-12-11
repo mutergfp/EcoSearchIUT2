@@ -109,7 +109,7 @@ class Produit
      */
     public function __construct()
     {
-        $this->photo = "EcoSearch.png";
+        $this->photo = "bundles/search/images/EcoSearch.png";
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
