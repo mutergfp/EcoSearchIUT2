@@ -15,41 +15,87 @@ class loadEcoSearch implements FixtureInterface
 
 	  {
 
+
+          /* DEBUT Dépots */
+
+          //objet
+          $depotVerre = new Depot();
+          $depotVerre->setType("Poubelle pour verre");
+          $depotJaune = new Depot();
+          $depotJaune->setType("Poubelle jaune");
+          $depotNoir = new Depot();
+          $depotNoir->setType("Poubelle pour ordures ménagères");
+          $dechetterie = new Depot();
+          $dechetterie->setType("Dechetterie");
+          $pharmacie = new Depot();
+          $pharmacie->setType("Pharmacie");
+          $magasin = new Depot();
+          $magasin->setType("Magasin");
+
+
+          //Persistance
+          $manager->persist($depotVerre);
+          $manager->persist($depotJaune);
+          $manager->persist($depotNoir);
+          $manager->persist($dechetterie);
+          $manager->persist($pharmacie);
+          $manager->persist($magasin);
+
+          /* FIN Dépots */
+
+
+
 		/* DEBUT Produits */
 		
 		// Objets 
 		$briquesDeLait = new Produit();
 		$briquesDeLait->setName("Brique de lait");
+		$briquesDeLait->setDepot($depotJaune);
 		$bouteillesDeLait = new Produit();
 		$bouteillesDeLait->setName("Bouteille de lait");
+		$bouteillesDeLait->setDepot($depotJaune);
 		$bouteillesEnVerre = new Produit();
 		$bouteillesEnVerre->setName("Bouteille en verre");
+		$bouteillesEnVerre->setDepot($depotVerre);
 		$bouchons = new Produit();
 		$bouchons->setName("Bouchon");
+		$bouchons->setDepot($depotVerre);
 		$bouteillesEnPlastique = new Produit();
 		$bouteillesEnPlastique->setName("Bouteille en plastique");
+		$bouteillesEnPlastique->setDepot($depotJaune);
 		$televisions = new Produit();
 		$televisions->setName("Television");
+		$televisions->setDepot($dechetterie);
 		$medicaments = new Produit();
 		$medicaments->setName("Medicaments");
+		$medicaments->setDepot($pharmacie);
 		$seringues = new Produit();
 		$seringues->setName("Seringues");
+		$seringues->setDepot($pharmacie);
 		$ampoules = new Produit();
 		$ampoules->setName("Ampoules");
+		$ampoules->setDepot($magasin);
 		$piles = new Produit();
 		$piles->setName("Piles");
+		$piles->setDepot($magasin);
 		$sachethe = new Produit();
 		$sachethe->setName("Sachet de thé");
+		$sachethe->setDepot($depotNoir);
 		$bois = new Produit();
 		$bois->setName("Bois");
+		$bois->setDepot($dechetterie);
 		$miroir = new Produit();
 		$miroir->setName("Miroir");
+		$miroir->setDepot($dechetterie);
 		$livre = new Produit();
 		$livre->setName("Livre");
+		$livre->setDepot($depotJaune);
 		$rasoir = new Produit();
 		$rasoir->setName("Rasoir");
+		$rasoir->setDepot($depotJaune);
 		$magazine = new Produit();
 		$magazine->setName("Magazine");
+		$magazine->setDepot($depotJaune);
 		
 		
 		//Persistance
@@ -71,34 +117,7 @@ class loadEcoSearch implements FixtureInterface
 		$manager->persist($magazine);
 
 		/* FIN Produits */
-		
-		
-		/* DEBUT Dépots */
 
-		//objet
-		$depotVerre = new Depot();
-		$depotVerre->setType("Poubelle pour verre");
-		$depotJaune = new Depot();
-		$depotJaune->setType("Poubelle jaune");
-		$depotNoir = new Depot();
-		$depotNoir->setType("Poubelle pour ordures ménagères");
-		$dechetterie = new Depot();
-		$dechetterie->setType("Dechetterie");
-		$pharmacie = new Depot();
-		$pharmacie->setType("Pharmacie");
-		$magasin = new Depot();
-		$magasin->setType("Magasin");
-		
-		
-		//Persistance
-		$manager->persist($depotVerre);
-		$manager->persist($depotJaune);
-		$manager->persist($depotNoir);
-		$manager->persist($dechetterie);
-		$manager->persist($pharmacie);
-		$manager->persist($magasin);
-		
-		/* FIN Dépots */
 
 		/* DEBUT tag */
           $tagBouteille = new Tag();
@@ -162,21 +181,7 @@ class loadEcoSearch implements FixtureInterface
 
 
 
-		$briquesDeLait->setDepot($depotJaune);
-		$bouteillesEnVerre->setDepot($depotVerre);
-		$bouchons->setDepot($depotVerre);
-		$bouteillesEnPlastique->setDepot($depotJaune);
-		$televisions->setDepot($dechetterie);
-		$medicaments->setDepot($pharmacie);
-		$seringues->setDepot($pharmacie);
-		$bois->setDepot($dechetterie);
-		$piles->setDepot($magasin);
-		$sachethe->setDepot($depotNoir);
-		$ampoules->setDepot($magasin);
-		$miroir->setDepot($dechetterie);
-		$livre->setDepot($depotJaune);
-		$rasoir->setDepot($depotJaune);
-		$magazine->setDepot($depotJaune);
+
 		
 		/* DEBUT Persistance de tous les objets */
 		
