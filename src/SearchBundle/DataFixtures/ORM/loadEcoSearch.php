@@ -29,6 +29,8 @@ class loadEcoSearch implements FixtureInterface
           $dechetterie->setType("Dechetterie");
           $pharmacie = new Depot();
           $pharmacie->setType("Pharmacie");
+          $univer = new Depot();
+          $univer->setType("Univers");
           $magasin = new Depot();
           $magasin->setType("Magasin");
 
@@ -39,6 +41,7 @@ class loadEcoSearch implements FixtureInterface
           $manager->persist($depotNoir);
           $manager->persist($dechetterie);
           $manager->persist($pharmacie);
+          $manager->persist($univer);
           $manager->persist($magasin);
 
           /* FIN Dépots */
@@ -67,6 +70,8 @@ class loadEcoSearch implements FixtureInterface
           $tagAmpoules->setNom("ampoules");
           $tagPiles = new Tag();
           $tagPiles->setNom("piles");
+          $tagUniver = new Tag();
+          $tagUniver->setNom("42");
           $tagThe = new Tag();
           $tagThe->setNom("the");
           $tagBois = new Tag();
@@ -102,7 +107,7 @@ class loadEcoSearch implements FixtureInterface
 		$bouteillesDeLait->setDepot($depotJaune);
 		$bouteillesDeLait->addTag($tagLait);
 		$bouteillesDeLait->addTag($tagBouteille);
-		$bouteillesDeLait->setPhoto("bundles/search/images/BoiteilleLait.jpg");
+		$bouteillesDeLait->setPhoto("bundles/search/images/BouteilleLait.jpg");
 
 		$bouteillesEnVerre = new Produit();
 		$bouteillesEnVerre->setName("Bouteille en verre");
@@ -160,6 +165,13 @@ class loadEcoSearch implements FixtureInterface
 		$sachethe->addTag($tagThe);
 		$sachethe->setPhoto("bundles/search/images/SachetThe.jpg");
 
+		$reponce = new Produit();
+		$reponce->setName("Réponce");
+		$reponce->setDepot($univer);
+		$reponce->addTag($tagUniver);
+		$reponce->setPhoto("bundles/search/images/BouteilleSoja.jpg");
+
+
 		$bois = new Produit();
 		$bois->setName("Bois");
 		$bois->setDepot($dechetterie);
@@ -202,6 +214,7 @@ class loadEcoSearch implements FixtureInterface
 		$manager->persist($seringues);
 		$manager->persist($ampoules);
 		$manager->persist($piles);
+		$manager->persist($reponce);
 		$manager->persist($sachethe);
 		$manager->persist($bois);
 		$manager->persist($miroir);
