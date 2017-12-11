@@ -1,6 +1,9 @@
 <?php
 
+namespace SearchBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use SearchBundle\Entity\Depot;
 use SearchBundle\Entity\Produit;
 use SearchBundle\Entity\Tag;
