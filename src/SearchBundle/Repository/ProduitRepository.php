@@ -13,8 +13,7 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
 
     public function getByTags($tags){
-        $i2=0;
-        $tabReturn = 0;
+        /*
         $repository =  $this->getDoctrine()->getRepository(SearchBundle::Produit);
         for($i = 0; $i< count($tags); $i++) {
             $products = $repository->findBy([
@@ -25,6 +24,17 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
                 }
             }
             return $tabReturn;
-        }
-
+        }*/
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where(':tag MEMBER OF p.tags')
+            ->setParameter('tag', $tags)
+            ->getQuery()
+            ->getResult();
+        /*foreach($tags as $tag){
+            $products = $repository->findBy([
+                'tags' => $tags
+            ]);
+        }*/
     }
+}
