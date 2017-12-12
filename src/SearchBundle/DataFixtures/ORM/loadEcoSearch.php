@@ -66,13 +66,13 @@ class loadEcoSearch implements FixtureInterface
           $tagTelevisions = new Tag();
           $tagTelevisions->setNom("television");
           $tagMedicaments = new Tag();
-          $tagMedicaments->setNom("medicaments");
+          $tagMedicaments->setNom("medicament");
           $tagSeringues = new Tag();
-          $tagSeringues->setNom("seringues");
+          $tagSeringues->setNom("seringue");
           $tagAmpoules = new Tag();
-          $tagAmpoules->setNom("ampoules");
+          $tagAmpoules->setNom("ampoule");
           $tagPiles = new Tag();
-          $tagPiles->setNom("piles");
+          $tagPiles->setNom("pile");
           $tagThe = new Tag();
           $tagThe->setNom("the");
           $tagBois = new Tag();
@@ -137,25 +137,25 @@ class loadEcoSearch implements FixtureInterface
 		$televisions->setPhoto("bundles/search/images/Television.jpg");
 
 		$medicaments = new Produit();
-		$medicaments->setName("Medicaments");
+		$medicaments->setName("Medicament");
 		$medicaments->setDepot($pharmacie);
 		$medicaments->addTag($tagMedicaments);
 		$medicaments->setPhoto("bundles/search/images/Medicament.jpg");
 
 		$seringues = new Produit();
-		$seringues->setName("Seringues");
+		$seringues->setName("Seringue");
 		$seringues->setDepot($pharmacie);
 		$seringues->addTag($tagSeringues);
 		$seringues->setPhoto("bundles/search/images/Seringues.jpg");
 
 		$ampoules = new Produit();
-		$ampoules->setName("Ampoules");
+		$ampoules->setName("Ampoule");
 		$ampoules->setDepot($magasin);
 		$ampoules->addTag($tagAmpoules);
 		$ampoules->setPhoto("bundles/search/images/Ampoule.jpg");
 
 		$piles = new Produit();
-		$piles->setName("Piles");
+		$piles->setName("Pile");
 		$piles->setDepot($magasin);
 		$piles->addTag($tagPiles);
 		$piles->setPhoto("bundles/search/images/Piles.jpg");
