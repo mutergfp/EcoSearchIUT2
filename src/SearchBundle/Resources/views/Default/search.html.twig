@@ -28,11 +28,12 @@
             <div class="col s12 m6">
                 <div class="card">
                     <div class="card-image">
-                        <img  src="{{ asset(produit.photo) }}" alt="photo {{ produit.name }}"/>
+                        <div class="image-resp" style="background-image: url('{{ asset(produit.photo) }}');">
+                        </div>
                         <a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">more_horiz</i></a>
                     </div>
                     <div class="card-content {{ produit.depot.couleur }}">
-                        <span class="card-title">{{ produit.name }}</span>
+                        <span class="card-title"><strong>{{ produit.name }}</strong></span>
                         <p>Veuillez déposer ce produit dans un dépôt de type : <strong>{{ produit.depot.type }}</strong></p>
                     </div>
                 </div>

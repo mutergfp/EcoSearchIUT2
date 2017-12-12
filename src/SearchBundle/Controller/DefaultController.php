@@ -13,7 +13,7 @@ class DefaultController extends Controller
      */
     public function searchAction($research)
     {
-        $tags_string = explode(" ", urldecode($research));
+        $tags_string = explode(" ", strtolower(urldecode($research)));
         $repository_tag = $this->getDoctrine()->getRepository('SearchBundle:Tag');
         $tags = array();
         $tags_found = $repository_tag->findAll();
