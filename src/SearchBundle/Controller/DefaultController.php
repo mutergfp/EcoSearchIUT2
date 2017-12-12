@@ -29,7 +29,8 @@ class DefaultController extends Controller
         $produits = $repository_produit->getByTags($tags);
 
         return $this->render('SearchBundle:Default:search.html.twig', array(
-            "produits" => $produits
+            "produits" => $produits,
+            "recherche" => urldecode($research)
         ));
     }
 }

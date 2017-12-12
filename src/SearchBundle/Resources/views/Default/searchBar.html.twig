@@ -1,4 +1,4 @@
 <div class="input-field">
-    <input value="" id="search-input" type="text" class="validate">
+    <input value="{% if recherche is defined %}{{ recherche }}{% endif %}" id="search-input" type="text" class="validate">
     <label class="active truncate" for="input">Rechercher un produit</label>
 </div>
