@@ -16,6 +16,13 @@
             <a id="search-button" class="waves-effect waves-light btn-large green">Rechercher</a>
         </div>
     </div>
+    <p>Nous avons fait la recherche pour ces mots clefs :</p>
+    {% for tag in tags %}
+        <a class="chip" href="{{ path('search',{'research':tag.nom}) }}" >{{ tag.nom }}</a>
+        {% else %}
+        <div class="chip">Aucun mot clef</div>
+    {% endfor %}
+
     <div class="row">
         {% for produit in produits %}
             <div class="col s12 m6">
