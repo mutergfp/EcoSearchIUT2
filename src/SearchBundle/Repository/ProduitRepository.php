@@ -12,29 +12,43 @@ use SearchBundle\SearchBundle;
 class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
 
+
     public function getByTags($tags){
-        /*
-        $repository =  $this->getDoctrine()->getRepository(SearchBundle::Produit);
-        for($i = 0; $i< count($tags); $i++) {
-            $products = $repository->findBy([
-                'tags' => $tags
-            ]);
-            for (;$i2<count($products); $i2++) {
-                $tabReturn[$i2] = var_dump($products[$i2]);
-                }
+        $products = array();
+        foreach ($tags as $tag){
+            $res =  $this->createQueryBuilder('p')
+                ->select('p')
+                ->where(':tag MEMBER OF p.tags')
+                ->setParameter('tag', $tag)
+                ->getQuery()
+                ->getResult();
+            foreach ($res as $product){
+                $products[] = $product;
             }
-            return $tabReturn;
-        }*/
-        return $this->createQueryBuilder('p')
-            ->select('p')
-            ->where(':tag MEMBER OF p.tags')
-            ->setParameter('tag', $tags)
-            ->getQuery()
-            ->getResult();
-        /*foreach($tags as $tag){
-            $products = $repository->findBy([
-                'tags' => $tags
-            ]);
-        }*/
+        }
+        $res = array();
+        $nbfound = array();
+        foreach ($products as $product){
+            if(!$this->chercher($product,$res)){
+                $res[]=$product;
+                $nbfound[$product->getId()]=1;
+            }else{
+                //if(!array_key_exists($product->getId(),$nbfound))$nbfound[$product->getId()]=0;
+                $nbfound[$product->getId()]++;
+            }
+        }
+        usort($res,function ($a, $b) use ($nbfound){
+            return $nbfound[$b->getId()] - $nbfound[$a->getId()];
+        });
+        return $res;
+    }
+
+    private function chercher($produit,&$tab){
+        foreach ($tab as $item){
+            if($produit->getId()==$item->getId()){
+                return true;
+            }
+        }
+        return false;
     }
 }

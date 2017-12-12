@@ -32,5 +32,6 @@ class DefaultController extends Controller
             "produits" => $produits,
             "recherche" => urldecode($research)
         ));
+        //return new Response(var_dump($produits));
     }
 }

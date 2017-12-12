@@ -21,18 +21,22 @@ class loadEcoSearch implements FixtureInterface
           //objet
           $depotVerre = new Depot();
           $depotVerre->setType("Poubelle pour verre");
+          $depotVerre->setCouleur("teal darken-3");
           $depotJaune = new Depot();
           $depotJaune->setType("Poubelle jaune");
+          $depotJaune->setCouleur("yellow darken-1");
           $depotNoir = new Depot();
           $depotNoir->setType("Poubelle pour ordures ménagères");
+          $depotNoir->setCouleur("black");
           $dechetterie = new Depot();
           $dechetterie->setType("Dechetterie");
+          $dechetterie->setCouleur("brown");
           $pharmacie = new Depot();
           $pharmacie->setType("Pharmacie");
-          $univer = new Depot();
-          $univer->setType("Univers");
+          $pharmacie->setCouleur("green accent-1");
           $magasin = new Depot();
           $magasin->setType("Magasin");
+          $magasin->setCouleur("red lighten-1");
 
 
           //Persistance
@@ -41,7 +45,6 @@ class loadEcoSearch implements FixtureInterface
           $manager->persist($depotNoir);
           $manager->persist($dechetterie);
           $manager->persist($pharmacie);
-          $manager->persist($univer);
           $manager->persist($magasin);
 
           /* FIN Dépots */
@@ -70,8 +73,6 @@ class loadEcoSearch implements FixtureInterface
           $tagAmpoules->setNom("ampoules");
           $tagPiles = new Tag();
           $tagPiles->setNom("piles");
-          $tagUniver = new Tag();
-          $tagUniver->setNom("42");
           $tagThe = new Tag();
           $tagThe->setNom("the");
           $tagBois = new Tag();
@@ -165,13 +166,6 @@ class loadEcoSearch implements FixtureInterface
 		$sachethe->addTag($tagThe);
 		$sachethe->setPhoto("bundles/search/images/SachetThe.jpg");
 
-		$reponce = new Produit();
-		$reponce->setName("Réponce");
-		$reponce->setDepot($univer);
-		$reponce->addTag($tagUniver);
-		$reponce->setPhoto("bundles/search/images/BouteilleSoja.jpg");
-
-
 		$bois = new Produit();
 		$bois->setName("Bois");
 		$bois->setDepot($dechetterie);
@@ -214,7 +208,6 @@ class loadEcoSearch implements FixtureInterface
 		$manager->persist($seringues);
 		$manager->persist($ampoules);
 		$manager->persist($piles);
-		$manager->persist($reponce);
 		$manager->persist($sachethe);
 		$manager->persist($bois);
 		$manager->persist($miroir);

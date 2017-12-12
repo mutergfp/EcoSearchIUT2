@@ -21,10 +21,10 @@
             <div class="col s12 m6">
                 <div class="card">
                     <div class="card-image">
-                        <img class="responsive-img" src="{{ asset(produit.photo) }}" alt="photo {{ produit.name }}"/>
-                        <a class="btn-floating halfway-fab waves-effect waves-light purple"><i class="material-icons">add</i></a>
+                        <img  src="{{ asset(produit.photo) }}" alt="photo {{ produit.name }}"/>
+                        <a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">more_horiz</i></a>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content {{ produit.depot.couleur }}">
                         <span class="card-title">{{ produit.name }}</span>
                         <p>Veuillez déposer ce produit dans un dépôt de type : <strong>{{ produit.depot.type }}</strong></p>
                     </div>
