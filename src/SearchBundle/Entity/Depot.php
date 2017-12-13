@@ -36,6 +36,13 @@ class Depot
     private $couleur;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="couleursec", type="string", length=255)
+     */
+    private $couleursec;
+
+    /**
      * Get id
      *
      * @return int
@@ -91,5 +98,35 @@ class Depot
     public function getCouleur()
     {
         return $this->couleur;
+    }
+
+    /**
+     * Set couleursec
+     *
+     * @param string $couleursec
+     *
+     * @return Depot
+     */
+    public function setCouleursec($couleursec)
+    {
+        $this->couleursec = $couleursec;
+
+        return $this;
+    }
+
+    /**
+     * Get couleursec
+     *
+     * @return string
+     */
+    public function getCouleursec()
+    {
+        return $this->couleursec;
+    }
+
+    function __construct()
+    {
+        $this->couleur='white';
+        $this->couleursec='green';
     }
 }
