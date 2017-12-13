@@ -19,9 +19,10 @@
 
 <nav class="green">
     <ul class="side-nav green" id="slide-out" style="padding-top: 10px">
-        <li><a href="{{ path('home') }}" style=" color: white"><i class="material-icons">home</i>Accueil</a></li>
+        <li class="green darken-2" style="margin-top: -10px; margin-bottom: -8px;"><a href="{{ path('home') }}" style="color: white"><i class="material-icons">home</i>Accueil</a></li>
         <li><div class="divider gray" style="margin-bottom: 10px"></div></li>
         <li><a class="subheader" style=" color: white">Communauté</a></li>
+        <li><a href="#!" style=" color: white"><i class="material-icons">add_circle</i>Participer</a></li>
         <li><a href="#!" style=" color: white"><i class="material-icons">gamepad</i>Jeu</a></li>
         <li><a href="#!" style=" color: white"><i class="material-icons">forum</i>Forum</a></li>
         <li><div class="divider gray" style="margin-bottom: 10px"></div></li>
@@ -29,9 +30,14 @@
         {% for i in 1..5 %}
             <li><a href="#!" style=" color: white"><i class="material-icons">book</i>Article {{ i }}</a></li>
         {% endfor %}
-
     </ul>
-    <a href="#" data-activates="slide-out" class="show-on-large button-collapse"><i class="material-icons">menu</i></a>
+    <div class="nav-wrapper">
+        <a href="#" data-activates="slide-out" class="show-on-large button-collapse"><i class="material-icons">menu</i></a>
+        <a href="{{ path('home') }}"><img src="{{ asset('bundles/core/images/EcoSearch.png') }}" alt="logo ecosearch" style="height: 30px; margin-top: 15px;"></a>
+        <div class="right">
+            <a class="right-align" href="#!user"><img class="circle right-align" src="{{ asset('bundles/core/images/user.png') }}" style="height: 50px; width: 50px; margin-top: 7px; margin-right: 10px;"></a>
+        </div>
+    </div>
 </nav>
 
 
