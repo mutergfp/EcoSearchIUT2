@@ -91,7 +91,22 @@ class loadEcoSearch implements FixtureInterface
           $tagRasoir->setNom("rasoir");
           $tagMagazine = new Tag();
           $tagMagazine->setNom("magazine");
-          
+          $tagMenagers = new Tag();
+          $tagMenagers->setNom("menager");
+          $tagLessive = new Tag();
+          $tagLessive->setNom("lessive");
+          $tagSavon = new Tag();
+          $tagSavon->setNom("savon");
+          $tagCarton = new Tag();
+          $tagCarton->setNom("carton");
+          $tagConserve = new Tag();
+          $tagConserve->setNom("Conserve");
+          $tagBoite = new Tag();
+          $tagBoite->setNom("Boite");
+          $tagAluminium = new Tag();
+          $tagAluminium->setNom("Aluminium");
+          $tagPapier = new Tag();
+          $tagPapier->setNom("Papier");
 
           /* FIN tag */
 
@@ -101,7 +116,44 @@ class loadEcoSearch implements FixtureInterface
 
 		/* DEBUT Produits */
 		
-		// Objets 
+		// Objets
+
+        $papier = new Produit();
+        $papier->setName("Papier");
+        $papier->setDepot($depotJaune);
+        $papier->addTag($tagPapier);
+        $papier->setPhoto("bundles/search/images/Papier.jpg");
+
+        $aluminium = new Produit();
+        $aluminium->setName("Papier d'aluminium");
+        $aluminium->setDepot($depotNoir);
+        $aluminium->addTag($tagAluminium);
+        $aluminium->addTag($tagPapier);
+        $aluminium->setPhoto("bundles/search/images/PapierAluminium.jpg");
+
+        $conserve = new Produit();
+        $conserve->setName("Boite de conserve aluminium");
+        $conserve->setDepot($depotJaune);
+        $conserve->addTag($tagBoite);
+        $conserve->addTag($tagConserve);
+        $conserve->addTag($tagAluminium);
+        $conserve->setPhoto("bundles/search/images/BoiteAluminium.jpg");
+
+        $carton = new Produit();
+        $carton->setName("Carton");
+        $carton->setDepot($depotJaune);
+        $carton->addTag($tagCarton);
+        $carton->addTag($tagBoite);
+        $carton->setPhoto("bundles/search/images/Carton.jpg");
+
+        $lessive = new Produit();
+        $lessive->setName("Lessive");
+        $lessive->setDepot($depotJaune);
+        $lessive->addTag($tagSavon);
+        $lessive->addTag($tagMenagers);
+        $lessive->addTag($tagLessive);
+        $lessive->setPhoto("bundles/search/images/Lessive.jpg");
+
 		$briquesDeLait = new Produit();
 		$briquesDeLait->setName("Brique de lait");
 		$briquesDeLait->setDepot($depotJaune);
@@ -199,6 +251,7 @@ class loadEcoSearch implements FixtureInterface
 		$magazine = new Produit();
 		$magazine->setName("Magazine");
 		$magazine->setDepot($depotJaune);
+		$magazine->addTag($tagPapier);
 		$magazine->addTag($tagMagazine);
 		$magazine->setPhoto("bundles/search/images/Magazine.jpg");
 		
