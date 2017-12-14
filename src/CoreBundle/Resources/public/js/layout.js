@@ -7,7 +7,7 @@ $( document ).ready(function(){
 
     $('input.autocomplete').autocomplete({
         data: getData($hiddenTags),
-        limit: 20,
+        limit: 5,
             onAutocomplete: function(val) {
         },
         minLength: 1,
