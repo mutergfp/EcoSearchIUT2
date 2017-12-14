@@ -42,7 +42,9 @@ class DefaultController extends Controller
         return $this->render('SearchBundle:Default:search.html.twig', array(
             "produits" => $produits,
             "recherche" => urldecode($research),
-            "tags"=>$tags
+            "tags"=>$tags,
+            "allTags"=>$tags_found
+
         ));
         //return new Response(var_dump($produits));
     }

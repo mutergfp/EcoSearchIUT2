@@ -12,6 +12,11 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('CoreBundle:Default:index.html.twig');
+        $tagsrepo = $this->getDoctrine()->getRepository("SearchBundle:Tag");
+        $tags = $tagsrepo->findAll();
+
+        return $this->render('CoreBundle:Default:index.html.twig', array(
+            "allTags" => $tags
+        ));
     }
 }

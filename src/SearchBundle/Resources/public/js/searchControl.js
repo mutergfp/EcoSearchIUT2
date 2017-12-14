@@ -12,6 +12,7 @@ var search = (function() {
     $searchButton.on("click", startSearch);
 
 
+
     function enterStartSearch(event) {
         if (event.which == 13) {
             startSearch();
