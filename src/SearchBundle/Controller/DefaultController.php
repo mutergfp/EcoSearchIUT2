@@ -13,6 +13,7 @@ class DefaultController extends Controller
      */
     public function searchAction($research)
     {
+        if ($research=="") return $this->redirectToRoute('home');
         $tags_string = explode(" ", strtolower(urldecode($research)));
         $repository_tag = $this->getDoctrine()->getRepository('SearchBundle:Tag');
         $tags = array();

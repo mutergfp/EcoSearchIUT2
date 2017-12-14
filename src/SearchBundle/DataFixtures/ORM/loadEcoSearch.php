@@ -22,21 +22,27 @@ class loadEcoSearch implements FixtureInterface
           $depotVerre = new Depot();
           $depotVerre->setType("Poubelle pour verre");
           $depotVerre->setCouleur("teal darken-3");
+          $depotVerre->setCouleursec("red darken-4");
           $depotJaune = new Depot();
           $depotJaune->setType("Poubelle jaune");
           $depotJaune->setCouleur("yellow darken-1");
+          $depotJaune->setCouleursec("blue darken-3");
           $depotNoir = new Depot();
           $depotNoir->setType("Poubelle pour ordures ménagères");
           $depotNoir->setCouleur("black");
+          $depotNoir->setCouleursec("grey");
           $dechetterie = new Depot();
           $dechetterie->setType("Dechetterie");
           $dechetterie->setCouleur("brown");
+          $dechetterie->setCouleursec("blue-grey darken-1");
           $pharmacie = new Depot();
           $pharmacie->setType("Pharmacie");
           $pharmacie->setCouleur("green accent-1");
+          $pharmacie->setCouleursec("purple lighten-3");
           $magasin = new Depot();
           $magasin->setType("Magasin");
           $magasin->setCouleur("red lighten-1");
+          $magasin->setCouleursec("blue lighten-3");
 
 
           //Persistance
