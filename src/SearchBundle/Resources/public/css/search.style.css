@@ -7,6 +7,10 @@
 
 }
 
+.card-content.yellow {
+    color: #263238;
+}
+
 .image-resp {
     width: 100%;
     height: 400px;
