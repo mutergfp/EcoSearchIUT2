@@ -91,7 +91,22 @@ class loadEcoSearch implements FixtureInterface
           $tagRasoir->setNom("rasoir");
           $tagMagazine = new Tag();
           $tagMagazine->setNom("magazine");
-          
+          $tagMenagers = new Tag();
+          $tagMenagers->setNom("menager");
+          $tagLessive = new Tag();
+          $tagLessive->setNom("lessive");
+          $tagSavon = new Tag();
+          $tagSavon->setNom("savon");
+          $tagCarton = new Tag();
+          $tagCarton->setNom("carton");
+          $tagConserve = new Tag();
+          $tagConserve->setNom("conserve");
+          $tagBoite = new Tag();
+          $tagBoite->setNom("boite");
+          $tagAluminium = new Tag();
+          $tagAluminium->setNom("aluminium");
+          $tagPapier = new Tag();
+          $tagPapier->setNom("papier");
 
           /* FIN tag */
 
@@ -101,13 +116,56 @@ class loadEcoSearch implements FixtureInterface
 
 		/* DEBUT Produits */
 		
-		// Objets 
+		// Objets
+
+        $papier = new Produit();
+        $papier->setName("Papier");
+        $papier->setDepot($depotJaune);
+        $papier->addTag($tagPapier);
+        $papier->setPhoto("bundles/search/images/Papier.jpg");
+        $manager->persist($papier);
+
+        $aluminium = new Produit();
+        $aluminium->setName("Papier d'aluminium");
+        $aluminium->setDepot($depotNoir);
+        $aluminium->addTag($tagAluminium);
+        $aluminium->addTag($tagPapier);
+        $aluminium->setPhoto("bundles/search/images/PapierAluminium.jpg");
+        $manager->persist($aluminium);
+
+        $conserve = new Produit();
+        $conserve->setName("Boite de conserve aluminium");
+        $conserve->setDepot($depotJaune);
+        $conserve->addTag($tagBoite);
+        $conserve->addTag($tagConserve);
+        $conserve->addTag($tagAluminium);
+        $conserve->setPhoto("bundles/search/images/BoiteAluminium.jpg");
+        $manager->persist($conserve);
+
+        $carton = new Produit();
+        $carton->setName("Carton");
+        $carton->setDepot($depotJaune);
+        $carton->addTag($tagCarton);
+        $carton->addTag($tagBoite);
+        $carton->setPhoto("bundles/search/images/Carton.jpg");
+        $manager->persist($carton);
+
+        $lessive = new Produit();
+        $lessive->setName("Lessive");
+        $lessive->setDepot($depotJaune);
+        $lessive->addTag($tagSavon);
+        $lessive->addTag($tagMenagers);
+        $lessive->addTag($tagLessive);
+        $lessive->setPhoto("bundles/search/images/Lessive.jpg");
+        $manager->persist($lessive);
+
 		$briquesDeLait = new Produit();
 		$briquesDeLait->setName("Brique de lait");
 		$briquesDeLait->setDepot($depotJaune);
 		$briquesDeLait->addTag($tagBrique);
 		$briquesDeLait->addTag($tagLait);
 		$briquesDeLait->setPhoto("bundles/search/images/BriqueLait.jpg");
+		$manager->persist($briquesDeLait);
 
 		$bouteillesDeLait = new Produit();
 		$bouteillesDeLait->setName("Bouteille de lait");
@@ -115,6 +173,7 @@ class loadEcoSearch implements FixtureInterface
 		$bouteillesDeLait->addTag($tagLait);
 		$bouteillesDeLait->addTag($tagBouteille);
 		$bouteillesDeLait->setPhoto("bundles/search/images/BouteilleLait.jpg");
+        $manager->persist($bouteillesDeLait);
 
 		$bouteillesEnVerre = new Produit();
 		$bouteillesEnVerre->setName("Bouteille en verre");
@@ -122,12 +181,14 @@ class loadEcoSearch implements FixtureInterface
 		$bouteillesEnVerre->addTag($tagVerre);
 		$bouteillesEnVerre->addTag($tagBouteille);
 		$bouteillesEnVerre->setPhoto("bundles/search/images/BouteilleVerre.jpg");
+		$manager->persist($bouteillesEnVerre);
 
 		$bouchons = new Produit();
 		$bouchons->setName("Bouchon");
 		$bouchons->setDepot($depotNoir);
 		$bouchons->addTag($tagBouchons);
 		$bouchons->setPhoto("bundles/search/images/Bouchon.jpg");
+		$manager->persist($bouchons);
 
 		$bouteillesEnPlastique = new Produit();
 		$bouteillesEnPlastique->setName("Bouteille en plastique");
@@ -135,91 +196,105 @@ class loadEcoSearch implements FixtureInterface
 		$bouteillesEnPlastique->addTag($tagBouteille);
 		$bouteillesEnPlastique->addTag($tagPlastique);
 		$bouteillesEnPlastique->setPhoto("bundles/search/images/BouteillePlastique.jpg");
+		$manager->persist($bouteillesEnPlastique);
 
 		$televisions = new Produit();
 		$televisions->setName("Television");
 		$televisions->setDepot($dechetterie);
 		$televisions->addTag($tagTelevisions);
 		$televisions->setPhoto("bundles/search/images/Television.jpg");
+		$manager->persist($televisions);
 
 		$medicaments = new Produit();
 		$medicaments->setName("Medicament");
 		$medicaments->setDepot($pharmacie);
 		$medicaments->addTag($tagMedicaments);
 		$medicaments->setPhoto("bundles/search/images/Medicament.jpg");
+		$manager->persist($medicaments);
 
 		$seringues = new Produit();
 		$seringues->setName("Seringue");
 		$seringues->setDepot($pharmacie);
 		$seringues->addTag($tagSeringues);
 		$seringues->setPhoto("bundles/search/images/Seringues.jpg");
+		$manager->persist($seringues);
 
 		$ampoules = new Produit();
 		$ampoules->setName("Ampoule");
 		$ampoules->setDepot($magasin);
 		$ampoules->addTag($tagAmpoules);
 		$ampoules->setPhoto("bundles/search/images/Ampoule.jpg");
+		$manager->persist($ampoules);
 
 		$piles = new Produit();
 		$piles->setName("Pile");
 		$piles->setDepot($magasin);
 		$piles->addTag($tagPiles);
 		$piles->setPhoto("bundles/search/images/Piles.jpg");
+		$manager->persist($piles);
 
 		$sachethe = new Produit();
 		$sachethe->setName("Sachet de thé");
 		$sachethe->setDepot($depotNoir);
 		$sachethe->addTag($tagThe);
 		$sachethe->setPhoto("bundles/search/images/SachetThe.jpg");
+		$manager->persist($sachethe);
 
 		$bois = new Produit();
 		$bois->setName("Bois");
 		$bois->setDepot($dechetterie);
 		$bois->addTag($tagBois);
 		$bois->setPhoto("bundles/search/images/Bois.jpg");
+		$manager->persist($bois);
 
 		$miroir = new Produit();
 		$miroir->setName("Miroir");
 		$miroir->setDepot($dechetterie);
 		$miroir->addTag($tagMiroir);
 		$miroir->setPhoto("bundles/search/images/Miroir.jpg");
+		$manager->persist($miroir);
 
 		$livre = new Produit();
 		$livre->setName("Livre");
 		$livre->setDepot($depotJaune);
 		$livre->addTag($tagLivre);
 		$livre->setPhoto("bundles/search/images/Livre.jpeg");
+		$manager->persist($livre);
 
 		$rasoir = new Produit();
 		$rasoir->setName("Rasoir");
 		$rasoir->setDepot($depotJaune);
 		$rasoir->addTag($tagRasoir);
 		$rasoir->setPhoto("bundles/search/images/Rasoir.jpg");
+		$manager->persist($rasoir);
 
 		$magazine = new Produit();
 		$magazine->setName("Magazine");
 		$magazine->setDepot($depotJaune);
+		$magazine->addTag($tagPapier);
 		$magazine->addTag($tagMagazine);
 		$magazine->setPhoto("bundles/search/images/Magazine.jpg");
+		$manager->persist($magazine);
 		
 		
 		//Persistance
-		$manager->persist($briquesDeLait);
-		$manager->persist($bouteillesDeLait);
-		$manager->persist($bouteillesEnVerre);
-		$manager->persist($bouchons);
-		$manager->persist($bouteillesEnPlastique);
-		$manager->persist($televisions);
-		$manager->persist($medicaments);
-		$manager->persist($seringues);
-		$manager->persist($ampoules);
-		$manager->persist($piles);
-		$manager->persist($sachethe);
-		$manager->persist($bois);
-		$manager->persist($miroir);
-		$manager->persist($livre);
-		$manager->persist($rasoir);
-		$manager->persist($magazine);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		/* FIN Produits */
 
