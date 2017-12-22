@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
+    private $listeTags;
+
     /**
      * @var int
      *
@@ -111,6 +113,7 @@ class Produit
     {
         $this->photo = "bundles/core/images/EcoSearch.png";
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->listeTags = "";
     }
 
     /**
@@ -169,5 +172,15 @@ class Produit
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function getListeTags()
+    {
+        return $this->listeTags;
+    }
+
+    public function setListeTags($l)
+    {
+        $this->listeTags=$l;
     }
 }

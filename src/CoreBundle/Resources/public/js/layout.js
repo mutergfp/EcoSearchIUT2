@@ -4,7 +4,6 @@ $( document ).ready(function(){
 
     $(".button-collapse").sideNav();
 
-
     $('input.autocomplete').autocomplete({
         data: getData($hiddenTags),
         limit: 5,
@@ -13,7 +12,6 @@ $( document ).ready(function(){
         minLength: 1
     });
 
-
     function getData($tags) {
         $tags = Array.prototype.slice.call($tags);
         return $tags.reduce(function(prev, $cur) {
@@ -21,4 +19,7 @@ $( document ).ready(function(){
             return prev;
         }, {});
     }
+
+    $('select').material_select();
+
 });

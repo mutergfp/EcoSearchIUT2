@@ -3,6 +3,9 @@
 namespace SearchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,14 +16,26 @@ class ProduitType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('photo')->add('depot')->add('tags');
+        $depots = $options['depots'];
+
+        foreach ($depots as $depot){
+            $choices[$depot->getType()] = $depot;
+        }
+
+        $builder
+            ->add('name', TextType::class)
+            ->add('photo', TextType::class)
+            ->add('depot', ChoiceType::class, array( 'choices' => $choices))
+            ->add('listeTags', TextType::class)
+            ->add('save',SubmitType::class);
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SearchBundle\Entity\Produit'
+            'data_class' => 'SearchBundle\Entity\Produit',
+            'depots'=>null
         ));
     }
 
@@ -31,6 +46,5 @@ class ProduitType extends AbstractType
     {
         return 'searchbundle_produit';
     }
-
 
 }

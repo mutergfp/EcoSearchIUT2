@@ -10,6 +10,46 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+
+    private $allTags;
+
+    private function getAllTags()
+    {
+        if($this->allTags == null){
+            $repository_tag = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+            $this->allTags = $repository_tag->findAll();
+        }
+        return $this->allTags;
+    }
+
+    private function rechercherTagsRessemblants($tag_string){
+        $percents = array();
+        $tags_found=null;
+        foreach ($this->getAllTags() as $tag) {
+            $percent = 0.0;
+            similar_text($tag->getNom(),$tag_string,$percent);
+            if($percent>70.0){
+                $tags_found[]=$tag;
+                $percents[$tag->getId()]=$percent;
+            }
+        }
+        usort($tags_found,function ($a, $b) use ($percents){
+            return $percents[$b->getId()] - $percents[$a->getId()];
+        });
+        return $tags_found;
+    }
+
+    private function rechercherLePlusRessemblant($tag_string){
+        $res =  $this->rechercherTagsRessemblants($tag_string);
+        if (array_key_exists(0,$res)){
+            return $res[0];
+        }else{
+            return null;
+        }
+    }
+
+
+
     /**
      * @Route("/{research}", name="search", defaults={"research" = ""})
      */
@@ -17,24 +57,14 @@ class DefaultController extends Controller
     {
         if ($research=="") return $this->redirectToRoute('home');
         $tags_string = explode(" ", strtolower(urldecode($research)));
-        $repository_tag = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+
         $tags = array();
-        $tags_found = $repository_tag->findAll();
+
         foreach ($tags_string as $tag_string)
         {
-            $percent_max=0.0;
-            $tag_found=null;
-            foreach ($tags_found as $tag) {
-                $percent = 0.0;
-                similar_text($tag->getNom(),$tag_string,$percent);
-                if($percent>$percent_max && $percent>70.0){
-                    $tag_found=$tag;
-                    $percent_max=$percent;
-                }
-            }
+            $tag_found = $this->rechercherLePlusRessemblant($tag_string);
             if($tag_found != null){
                 $tags[] = $tag_found;
-                //$tag_found->setNom($tag_found->getNom().' ('.round($percent_max).'%)');
             }
         }
 
@@ -45,20 +75,40 @@ class DefaultController extends Controller
             "produits" => $produits,
             "recherche" => urldecode($research),
             "tags"=>$tags,
-            "allTags"=>$tags_found
+            "allTags"=>$this->getAllTags()
 
         ));
-        //return new Response(var_dump($produits));
     }
 
     /**
-     * @Route("/addProduct", name="addProduct")
+     * @Route("/add/product", name="addProduct")
      */
     public function addProduct() {
         $produit = new Produit();
-        $form = $this->get('form.factory')->create(ProduitType::class, $produit);
-        return $this->render('SearchBundle:Default:addProduct.html.twig' , array(
+        $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
+        return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
+            'title'=> 'Nouveau produit',
            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/edit/product/{id}", name="editProduct")
+     */
+    public function editProduct($id) {
+        $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
+        $produit = $repository_produit->find($id);
+        if($produit == null){
+            return $this->redirectToRoute('home');
+        }else{
+            foreach ($produit->getTags() as $tag){
+                $produit->setListeTags($produit->getListeTags().$tag->getNom()." ");
+            }
+        }
+        $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
+        return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
+            'title' => 'Modification de '.$produit->getName(),
+            'form' => $form->createView()
         ));
     }
 }
