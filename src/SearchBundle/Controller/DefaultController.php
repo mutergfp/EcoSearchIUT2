@@ -2,6 +2,8 @@
 
 namespace SearchBundle\Controller;
 
+use SearchBundle\Entity\Produit;
+use SearchBundle\Form\ProduitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,5 +49,16 @@ class DefaultController extends Controller
 
         ));
         //return new Response(var_dump($produits));
+    }
+
+    /**
+     * @Route("/addProduct", name="addProduct")
+     */
+    public function addProduct() {
+        $produit = new Produit();
+        $form = $this->get('form.factory')->create(ProduitType::class, $produit);
+        return $this->render('SearchBundle:Default:addProduct.html.twig' , array(
+           'form' => $form->createView()
+        ));
     }
 }

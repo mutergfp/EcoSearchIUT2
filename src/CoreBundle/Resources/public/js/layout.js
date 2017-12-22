@@ -10,15 +10,15 @@ $( document ).ready(function(){
         limit: 5,
             onAutocomplete: function(val) {
         },
-        minLength: 1,
+        minLength: 1
     });
 
 
     function getData($tags) {
-        var data = {};
-        for (var i = 0; i < $tags.length; i++) {
-            data[$tags[i].innerText] = null;
-        }
-        return data;
+        $tags = Array.prototype.slice.call($tags);
+        return $tags.reduce(function(prev, $cur) {
+            prev[$cur.innerText] = null;
+            return prev;
+        }, {});
     }
 });
