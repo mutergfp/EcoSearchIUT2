@@ -121,7 +121,7 @@ class DefaultController extends Controller
             $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
             foreach ($tags as $tag){
-                $tagobj = $tagrep->findByNom($tag);
+                $tagobj = $tagrep->findOneByNom($tag);
                 if($tagobj == null){
                     $tagobj = new Tag();
                     $tagobj->setNom($tag);
@@ -129,6 +129,7 @@ class DefaultController extends Controller
                 }
                 $produit->addTag($tagobj);
             }
+            $em->persist($produit);
             $em->flush();
             return new Response($this->generateUrl('home'));
         }
@@ -167,7 +168,7 @@ class DefaultController extends Controller
             $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
             foreach ($tags as $tag){
-                $tagobj = $tagrep->findByNom($tag);
+                $tagobj = $tagrep->findOneByNom($tag);
                 if($tagobj == null){
                     $tagobj = new Tag();
                     $tagobj->setNom($tag);
