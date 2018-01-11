@@ -48,6 +48,24 @@ class DefaultController extends Controller
         }
     }
 
+    /**
+     * @Route("/get/tzgs")
+     */
+    public function tagsAction()
+    {
+        $res = array();
+        foreach ($this->getAllTags() as $tag)
+        {
+            $res[] = $tag->getNom();
+        }
+        $repository_prd = $this->getDoctrine()->getRepository('SearchBundle:Produit');
+        $prds = $repository_prd->findAll();
+        foreach ($prds as $prd)
+        {
+            $res[] = $prd->getName();
+        }
+        return new Response(json_encode($res));
+    }
 
 
     /**
