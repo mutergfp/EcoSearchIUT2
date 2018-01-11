@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
-    private $listeTags;
 
     /**
      * @var int
@@ -172,15 +171,5 @@ class Produit
     public function getTags()
     {
         return $this->tags;
-    }
-
-    public function getListeTags()
-    {
-        return $this->listeTags;
-    }
-
-    public function setListeTags($l)
-    {
-        $this->listeTags=$l;
     }
 }
