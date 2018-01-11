@@ -49,7 +49,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/get/tzgs")
+     * @Route("/get/tags")
      */
     public function tagsAction()
     {
