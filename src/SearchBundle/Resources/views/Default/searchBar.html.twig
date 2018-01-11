@@ -2,9 +2,3 @@
     <input value="{% if recherche is defined %}{{ recherche }}{% endif %}" id="search-input" type="text" class="validate autocomplete" autocomplete="off">
     <label class="active truncate" for="input">Rechercher un produit</label>
 </div>
-
-<div id="hidden-content" class="hide">
-    {% for tag in allTags %}
-        <p class="hide hidden-tag">{{ tag.nom }}</p>
-    {% endfor %}
-</div>

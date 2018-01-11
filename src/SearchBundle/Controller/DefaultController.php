@@ -49,7 +49,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/get/tags")
+     * @Route("/get/tags", name="gettags")
      */
     public function tagsAction()
     {
@@ -92,9 +92,7 @@ class DefaultController extends Controller
         return $this->render('SearchBundle:Default:search.html.twig', array(
             "produits" => $produits,
             "recherche" => urldecode($research),
-            "tags"=>$tags,
-            "allTags"=>$this->getAllTags()
-
+            "tags"=>$tags
         ));
     }
 
@@ -118,10 +116,6 @@ class DefaultController extends Controller
         $produit = $repository_produit->find($id);
         if($produit == null){
             return $this->redirectToRoute('home');
-        }else{
-            foreach ($produit->getTags() as $tag){
-                $produit->setListeTags($produit->getListeTags().$tag->getNom()." ");
-            }
         }
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
