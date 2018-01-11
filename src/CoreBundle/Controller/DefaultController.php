@@ -19,4 +19,12 @@ class DefaultController extends Controller
             "allTags" => $tags
         ));
     }
+
+    /**
+     * @Route("/participate")
+     */
+    public function participateAction()
+    {
+        return $this->render('CoreBundle:Default:participateEx.html.twig');
+    }
 }

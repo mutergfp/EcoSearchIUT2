@@ -1,0 +1,70 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block title %}Utilisation d'Ecosearch{% endblock %}
+
+{% block content %}
+    <p>Envie de participer à la collecte des déchets ? Et bien vous le pouvez !</p>
+    <p>Nous n'avons pas pu répertorier tout les dechets existants, et VOUS êtes la solution !</p>
+    <p>Nous vous offrons la possibilité d'ajouter vous même les déchets qui ne sont pas encore répertorié !</p>
+    <p>Suivez ce guide afin de connaitre le fonctionnement.</p>
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">add_circle</i>
+                1 - Connexion à son compte
+            </div>
+            <div class="collapsible-body">
+                <p>Afin de pouvoir rejoindre notre communauté et nous aider vous devez préalablement vous inscire sur notre site</p>
+                <ul>
+                    <li><a href="">Se connecter</a></li>
+                    <li><a href="">S'inscrire</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">add_circle</i>
+                2 - Rechercher le produit voulu
+            </div>
+            <div class="collapsible-body">
+                <p>Afin que nous ne perdions pas notre temps, et que vous non plus,
+                    evité d'ajouter des produit déjà existant, chercher le dechets
+                    que vous voulez ajouter tout d'abord dans le navigateur de recherche
+                    si celui-ci est proposé dans la liste des déchets, s'il vous plait
+                    n'ajouter pas une seconde fois le même élément, mais si celui-ci n'existe pas
+                    nous vous proposons que vous l'ajoutiez.</p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">add_circle</i>
+                3 - Ajouter un produit non existant
+            </div>
+            <div class="collapsible-body">
+                <p>Vous êtes bien connecté ? Vous avez bien vérifié l'inexistance du déchet ?</p>
+                <p>Munissez vous :</p>
+                <ul>
+                    <li> - du nom du dechet</li>
+                    <li> - d'une photo du dechet</li>
+                    <li> - du type de dechet</li>
+                    <li> - ainsi que plusieurs tags</li>
+                </ul>
+                <p>Suite à cela rendez <a href="">sur ce site</a> et rentrez
+                    les informations</p>
+                <p>Un de nos modérateur vérifira les dechets proposés et les validera ou non</p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">add_circle</i>
+                4 - Editer un produit existant
+            </div>
+            <div class="collapsible-body">
+                <p>Vous avez vu un produit n'étant pas dans le bonne catégorie de déchets ?</p>
+                <p>Sur ce produit, cliquez sur le bouton représentant les points de suspensions et cliquez sur "Edit"</p>
+                <p>Sur la page de modification, changez les informations incorrectes puis sauvegardez les modifications</p>
+                <p>Un de nos modérateur vérifira les modifications effectués et les validera ou non</p>
+            </div>
+        </li>
+    </ul>
+{% endblock %}
