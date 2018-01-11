@@ -116,10 +116,6 @@ class DefaultController extends Controller
         $produit = $repository_produit->find($id);
         if($produit == null){
             return $this->redirectToRoute('home');
-        }else{
-            foreach ($produit->getTags() as $tag){
-                $produit->setListeTags($produit->getListeTags().$tag->getNom()." ");
-            }
         }
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
