@@ -12,11 +12,14 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $tagsrepo = $this->getDoctrine()->getRepository("SearchBundle:Tag");
-        $tags = $tagsrepo->findAll();
+        return $this->render('CoreBundle:Default:index.html.twig');
+    }
 
-        return $this->render('CoreBundle:Default:index.html.twig', array(
-            "allTags" => $tags
-        ));
+    /**
+     * @Route("/participate")
+     */
+    public function participateAction()
+    {
+        return $this->render('CoreBundle:Default:participateEx.html.twig');
     }
 }
