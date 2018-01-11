@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
-    private $listeTags;
-
     /**
      * @var int
      *
@@ -106,81 +104,5 @@ class Produit
     {
         return $this->photo;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photo = "bundles/core/images/EcoSearch.png";
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->listeTags = "";
-    }
-
-    /**
-     * Set depot
-     *
-     * @param \SearchBundle\Entity\Depot $depot
-     *
-     * @return Produit
-     */
-    public function setDepot(\SearchBundle\Entity\Depot $depot)
-    {
-        $this->depot = $depot;
-
-        return $this;
-    }
-
-    /**
-     * Get depot
-     *
-     * @return \SearchBundle\Entity\Depot
-     */
-    public function getDepot()
-    {
-        return $this->depot;
-    }
-
-    /**
-     * Add tag
-     *
-     * @param \SearchBundle\Entity\Tag $tag
-     *
-     * @return Produit
-     */
-    public function addTag(\SearchBundle\Entity\Tag $tag)
-    {
-        $this->tags[] = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Remove tag
-     *
-     * @param \SearchBundle\Entity\Tag $tag
-     */
-    public function removeTag(\SearchBundle\Entity\Tag $tag)
-    {
-        $this->tags->removeElement($tag);
-    }
-
-    /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    public function getListeTags()
-    {
-        return $this->listeTags;
-    }
-
-    public function setListeTags($l)
-    {
-        $this->listeTags=$l;
-    }
 }
+

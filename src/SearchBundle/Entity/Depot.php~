@@ -99,34 +99,4 @@ class Depot
     {
         return $this->couleur;
     }
-
-    /**
-     * Set couleursec
-     *
-     * @param string $couleursec
-     *
-     * @return Depot
-     */
-    public function setCouleursec($couleursec)
-    {
-        $this->couleursec = $couleursec;
-
-        return $this;
-    }
-
-    /**
-     * Get couleursec
-     *
-     * @return string
-     */
-    public function getCouleursec()
-    {
-        return $this->couleursec;
-    }
-
-    function __construct()
-    {
-        $this->couleur='white';
-        $this->couleursec='green';
-    }
 }

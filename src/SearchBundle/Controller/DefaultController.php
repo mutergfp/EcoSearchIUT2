@@ -49,7 +49,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/get/tags")
+     * @Route("/get/tags", name="gettags")
      */
     public function tagsAction()
     {
@@ -92,9 +92,7 @@ class DefaultController extends Controller
         return $this->render('SearchBundle:Default:search.html.twig', array(
             "produits" => $produits,
             "recherche" => urldecode($research),
-            "tags"=>$tags,
-            "allTags"=>$this->getAllTags()
-
+            "tags"=>$tags
         ));
     }
 
