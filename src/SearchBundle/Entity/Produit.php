@@ -172,4 +172,8 @@ class Produit
     {
         return $this->tags;
     }
+
+    public function resetTags(){
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }

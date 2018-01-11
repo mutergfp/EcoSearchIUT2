@@ -3,9 +3,11 @@
 namespace SearchBundle\Controller;
 
 use SearchBundle\Entity\Produit;
+use SearchBundle\Entity\Tag;
 use SearchBundle\Form\ProduitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
@@ -101,9 +103,38 @@ class DefaultController extends Controller
     /**
      * @Route("/add/product", name="addProduct")
      */
-    public function addProduct() {
+    public function addProduct(Request $request) {
         $produit = new Produit();
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
+
+        if ($request->isMethod('POST')) {
+
+            $depotrep = $this->getDoctrine()->getRepository('SearchBundle:Depot');
+            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+            $em = $this->getDoctrine()->getManager();
+
+            $name = json_decode($request->request->get('name'));
+            $photo = json_decode($request->request->get('photo'));
+            $depot = json_decode($request->request->get('depot'));
+            $tags = json_decode($request->request->get('tags'));
+
+            $produit->setName($name);
+            $produit->setPhoto($photo);
+            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findByName($depot));
+            $produit->resetTags();
+            foreach ($tags as $tag){
+                $tagobj = $tagrep->findByNom($tag);
+                if($tagobj == null){
+                    $tagobj = new Tag();
+                    $tagobj->setNom($tag);
+                    $em->persist($tag);
+                }
+                $produit->addTag($tagobj);
+            }
+            $em->flush();
+            return new Response($this->generateUrl('home'));
+        }
+
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title'=> 'Nouveau produit',
            'form' => $form->createView()
@@ -113,13 +144,42 @@ class DefaultController extends Controller
     /**
      * @Route("/edit/product/{id}", name="editProduct")
      */
-    public function editProduct($id) {
+    public function editProduct($id, Request $request) {
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
         $produit = $repository_produit->find($id);
         if($produit == null){
             return $this->redirectToRoute('home');
         }
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
+
+        if ($request->isMethod('POST')) {
+
+            $depotrep = $this->getDoctrine()->getRepository('SearchBundle:Depot');
+            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+            $em = $this->getDoctrine()->getManager();
+
+            $name = json_decode($request->request->get('name'));
+            $photo = json_decode($request->request->get('photo'));
+            $depot = json_decode($request->request->get('depot'));
+            $tags = json_decode($request->request->get('tags'));
+
+            $produit->setName($name);
+            $produit->setPhoto($photo);
+            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findByName($depot));
+            $produit->resetTags();
+            foreach ($tags as $tag){
+                $tagobj = $tagrep->findByNom($tag);
+                if($tagobj == null){
+                    $tagobj = new Tag();
+                    $tagobj->setNom($tag);
+                    $em->persist($tag);
+                }
+                $produit->addTag($tagobj);
+            }
+            $em->flush();
+            return new Response($this->generateUrl('home'));
+        }
+
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title' => 'Modification de '.$produit->getName(),
             'form' => $form->createView()
