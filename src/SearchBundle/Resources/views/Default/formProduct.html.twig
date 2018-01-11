@@ -7,7 +7,17 @@
         <div class="col s6 offset-s3">
             <h2 class="header">{{ title }}</h2>
             {{ form(form) }}
-            <div id="searchbundle_produit_tags" class="chips chips-autocomplete"></div>
+            <div>
+                <label for="searchbundle_produit_tags" class="required active">Tags</label>
+                <div id="searchbundle_produit_tags" class="chips chips-autocomplete">
+                    {% for tag in produit.tags %}
+                        <div class="chip">
+                            {{ tag.nom }}
+                            <i class="close material-icons">close</i>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
             <a id="searchbundle_save_button" class="waves-effect waves-light btn">Sauvegarder</a>
         </div>
     </div>

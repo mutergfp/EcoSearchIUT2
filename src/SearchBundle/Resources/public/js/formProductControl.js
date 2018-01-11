@@ -46,7 +46,6 @@ $(document).ready(function() {
     }
 
     function save(event) {
-        console.log(getFormData());
         $.post(
             window.location.href,
             getFormData(),

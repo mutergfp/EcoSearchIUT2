@@ -135,7 +135,8 @@ class DefaultController extends Controller
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title'=> 'Nouveau produit',
-           'form' => $form->createView()
+           'form' => $form->createView(),
+            'produit' => $produit
         ));
     }
 
@@ -180,7 +181,8 @@ class DefaultController extends Controller
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title' => 'Modification de '.$produit->getName(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'produit' => $produit
         ));
     }
 }
