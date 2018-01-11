@@ -26,7 +26,7 @@ class DefaultController extends Controller
 
     private function rechercherTagsRessemblants($tag_string){
         $percents = array();
-        $tags_found=null;
+        $tags_found = array();
         foreach ($this->getAllTags() as $tag) {
             $percent = 0.0;
             similar_text($tag->getNom(),$tag_string,$percent);

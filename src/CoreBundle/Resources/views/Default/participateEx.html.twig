@@ -3,6 +3,8 @@
 {% block title %}Utilisation d'Ecosearch{% endblock %}
 
 {% block content %}
+'
+    <img class="responsive-img" src="{{ asset('bundles/core/images/banniere-jardin-de-maizicourt.jpg') }}"/>
     <p>Envie de participer à la collecte des déchets ? Et bien vous le pouvez !</p>
     <p>Nous n'avons pas pu répertorier tout les dechets existants, et VOUS êtes la solution !</p>
     <p>Nous vous offrons la possibilité d'ajouter vous même les déchets qui ne sont pas encore répertorié !</p>
@@ -49,7 +51,7 @@
                     <li> - du type de dechet</li>
                     <li> - ainsi que plusieurs tags</li>
                 </ul>
-                <p>Suite à cela rendez <a href="">sur ce site</a> et rentrez
+                <p>Suite à cela rendez <a href="{{ path('addProduct') }}">sur ce site</a> et rentrez
                     les informations</p>
                 <p>Un de nos modérateur vérifira les dechets proposés et les validera ou non</p>
             </div>
