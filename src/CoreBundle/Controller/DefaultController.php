@@ -16,7 +16,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/participate")
+     * @Route("/participate", name="participate")
      */
     public function participateAction()
     {

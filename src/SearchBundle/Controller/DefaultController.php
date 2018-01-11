@@ -111,21 +111,21 @@ class DefaultController extends Controller
             $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
             $em = $this->getDoctrine()->getManager();
 
-            $name = json_decode($request->request->get('name'));
-            $photo = json_decode($request->request->get('photo'));
-            $depot = json_decode($request->request->get('depot'));
-            $tags = json_decode($request->request->get('tags'));
+            $name = $request->request->get('name');
+            $photo = $request->request->get('photo');
+            $depot = $request->request->get('depot');
+            $tags = $request->request->get('tags');
 
             $produit->setName($name);
             $produit->setPhoto($photo);
-            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findByName($depot));
+            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
             foreach ($tags as $tag){
                 $tagobj = $tagrep->findByNom($tag);
                 if($tagobj == null){
                     $tagobj = new Tag();
                     $tagobj->setNom($tag);
-                    $em->persist($tag);
+                    $em->persist($tagobj);
                 }
                 $produit->addTag($tagobj);
             }
@@ -156,21 +156,21 @@ class DefaultController extends Controller
             $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
             $em = $this->getDoctrine()->getManager();
 
-            $name = json_decode($request->request->get('name'));
-            $photo = json_decode($request->request->get('photo'));
-            $depot = json_decode($request->request->get('depot'));
-            $tags = json_decode($request->request->get('tags'));
+            $name = $request->request->get('name');
+            $photo = $request->request->get('photo');
+            $depot = $request->request->get('depot');
+            $tags = $request->request->get('tags');
 
             $produit->setName($name);
             $produit->setPhoto($photo);
-            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findByName($depot));
+            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
             foreach ($tags as $tag){
                 $tagobj = $tagrep->findByNom($tag);
                 if($tagobj == null){
                     $tagobj = new Tag();
                     $tagobj->setNom($tag);
-                    $em->persist($tag);
+                    $em->persist($tagobj);
                 }
                 $produit->addTag($tagobj);
             }

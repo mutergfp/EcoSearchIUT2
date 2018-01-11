@@ -25,9 +25,7 @@ class ProduitType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('photo', TextType::class)
-            ->add('depot', ChoiceType::class, array( 'choices' => $choices))
-            ->add('listeTags', TextType::class)
-            ->add('save',SubmitType::class);
+            ->add('depot', ChoiceType::class, array( 'choices' => $choices));
     }/**
      * {@inheritdoc}
      */
