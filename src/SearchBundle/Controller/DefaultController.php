@@ -7,6 +7,7 @@ use SearchBundle\Entity\Tag;
 use SearchBundle\Form\ProduitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -171,12 +172,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $name = $request->request->get('name');
-            $photo = $request->request->get('photo');
             $depot = $request->request->get('depot');
             $tags = $request->request->get('tags');
 
             $produit->setName($name);
-            $produit->setPhoto($photo);
             $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
             foreach ($tags as $tag){
@@ -197,5 +196,25 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'produit' => $produit
         ));
+    }
+
+    /**
+     * @Route("/edit/product/photo/{id}", name="editProductPhoto")
+     */
+    public function editProductPhoto($id, Request $request)
+    {
+        $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
+        $produit = $repository_produit->find($id);
+        if($request->isMethod('POST')){
+            $photo = $request->files->get('photo');
+            if($photo != null){
+                $nom = 'bundles/search/images/photo_produit_'.$produit->getId().'_'.uniqid(rand(), true);
+                move_uploaded_file($photo,$nom);
+                $produit->setPhoto($nom);
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+            }
+            return $this->redirectToRoute('home');
+        }
     }
 }
