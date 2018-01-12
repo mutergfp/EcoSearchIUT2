@@ -6,12 +6,14 @@ $(document).ready(function() {
     var $productTags = $('#searchbundle_produit_tags');
     var $saveButton = $('#searchbundle_save_button');
     var $getTagsURL = $('#tags-path');
-
+    var $getTagsProduct = $("#gettagsproduct-path");
     // bind events
     $saveButton.on('click', save);
 
-
+    // init chips
     getTagsData($getTagsURL.text());
+    getProductTagsData();
+
 
     function getTagsData(url) {
         $.getJSON(encodeURI(url), function(json) {
@@ -45,7 +47,22 @@ $(document).ready(function() {
         }
     }
 
+    function getProductTagsData() {
+        $.getJSON($getTagsProduct.text(), function(json) {
+            var data = json.reduce(function(prev, cur){
+                prev.push({
+                    tag: cur
+                });
+                return prev;
+            }, []);
+            $productTags.material_chip({
+                data: data
+            });
+        });
+    }
+
     function save(event) {
+        console.log(getFormData());
         $.post(
             window.location.href,
             getFormData(),
