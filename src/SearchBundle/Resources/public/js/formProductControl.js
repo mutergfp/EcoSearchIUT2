@@ -7,6 +7,8 @@ $(document).ready(function() {
     var $saveButton = $('#searchbundle_save_button');
     var $getTagsURL = $('#tags-path');
     var $getTagsProduct = $("#gettagsproduct-path");
+    var $productForm = $('#searchbundle_produit_form');
+
     // bind events
     $saveButton.on('click', save);
 
@@ -39,12 +41,14 @@ $(document).ready(function() {
             return prev;
         }, []);
 
-        return {
+        /*return {
             name: $productName.val(),
             photo: $productPicture.val(),
             depot: $productRepo.val(),
             tags: tagsData
-        }
+        }*/
+
+        return tagsData;
     }
 
     function getProductTagsData() {
@@ -62,13 +66,25 @@ $(document).ready(function() {
     }
 
     function save(event) {
-        console.log(getFormData());
-        $.post(
+        //console.log(getFormData());
+        var postData = new FormData($productForm);
+        console.log($productPicture[0].files[0]);
+        postData.append("name",  $productName.val());
+        postData.append("photo", $productPicture[0].files[0]);
+        postData.append("depot", $productRepo.val());
+        postData.append("tags", getFormData());
+
+
+        $.post(window.location.href, postData, function(url) {
+            window.location.href = url;
+        });
+
+        /*$.post(
             window.location.href,
             getFormData(),
             function(url) {
                 window.location.href = url;
             }
-        );
+        );*/
     }
 });

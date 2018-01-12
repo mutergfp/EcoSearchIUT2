@@ -24,7 +24,6 @@ class ProduitType extends AbstractType
 
         $builder
             ->add('name', TextType::class)
-            ->add('photo', TextType::class)
             ->add('depot', ChoiceType::class, array( 'choices' => $choices));
     }/**
      * {@inheritdoc}

@@ -8,6 +8,17 @@
         <div class="col s6 offset-s3">
             <h2 class="header">{{ title }}</h2>
             {{ form(form) }}
+            <form id="searchbundle_produit_form" action="#">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Image</span>
+                        <input id="searchbundle_produit_photo" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Envoyer une photo">
+                    </div>
+                </div>
+            </form>
             <div>
                 <label for="searchbundle_produit_tags" class="required active">Tags</label>
                 <div id="searchbundle_produit_tags" class="chips chips-initial chips-autocomplete">
