@@ -69,6 +69,18 @@ class DefaultController extends Controller
         return new Response(json_encode($res));
     }
 
+    /**
+     * @Route("/get/tags/product/{id}", name="gettagsproduct")
+     */
+    public function productTagsAction($id){
+        $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
+        $produit = $repository_produit->find($id);
+        $res = array();
+        foreach ($produit->getTags() as $tag){
+            $res[]=$tag->getNom();
+        }
+        return new Response(json_encode($res));
+    }
 
     /**
      * @Route("/{research}", name="search", defaults={"research" = ""})
