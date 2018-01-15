@@ -7,3 +7,14 @@ search:
     resource: "@SearchBundle/Controller/"
     type:     annotation
     prefix:   /search
+
+login:
+    path: /login
+    defaults:
+        _controller: UserBundle:Security:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
