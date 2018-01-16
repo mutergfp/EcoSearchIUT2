@@ -14,19 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
 
-    /**
-     * Attibut représentant tout les tags d'un produit
-     *
-     * @var $allTags
-     */
     private $allTags;
 
-    /**
-     *      Récupère tout les tags d'un produit et les donnes à l'attribut allTags
-     *
-     * @return array
-     *      Tags d'un produit
-     */
     private function getAllTags()
     {
         if($this->allTags == null){
@@ -36,15 +25,6 @@ class DefaultController extends Controller
         return $this->allTags;
     }
 
-    /**
-     * Compare le tag voulu avec une liste de tag, et suggère une correction
-     *
-     * @param $tag_string
-     *      Tag taper sur la barre de recherche du site
-     * @return array
-     *      Liste de tags
-     *
-     */
     private function rechercherTagsRessemblants($tag_string){
         $percents = array();
         $tags_found = array();
@@ -72,8 +52,6 @@ class DefaultController extends Controller
     }
 
     /**
-     *
-     *
      * @Route("/get/tags", name="gettags")
      */
     public function tagsAction()
@@ -93,8 +71,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Associe l'URL du produit trouvé en fonction du tag taper la page  du SearchBundle
-     *
      * @Route("/get/tags/product/{id}", name="gettagsproduct")
      */
     public function productTagsAction($id){
@@ -108,8 +84,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Permet l'action de rechercher un produit
-     *
      * @Route("/{research}", name="search", defaults={"research" = ""})
      */
     public function searchAction($research)
@@ -138,8 +112,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Permet la création d'un nouveau produit dans la base de données
-     *
      * @Route("/add/product", name="addProduct")
      */
     public function addProduct(Request $request) {
@@ -177,37 +149,49 @@ class DefaultController extends Controller
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title'=> 'Nouveau produit',
-           'form' => $form->createView(),
+            'form' => $form->createView(),
             'produit' => $produit
         ));
     }
 
     /**
-     * Permet l'edition des produits déjà existant de la base de données
-     *
      * @Route("/edit/product/{id}", name="editProduct")
      */
-    public function editProduct($id, Request $request) {
+    public function editProductAction($id, Request $request) {
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
         $produit = $repository_produit->find($id);
         if($produit == null){
             return $this->redirectToRoute('home');
         }
+        $produit->setPhoto(null);
+
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
 
-        if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
 
-            $depotrep = $this->getDoctrine()->getRepository('SearchBundle:Depot');
-            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
 
-            $name = $request->request->get('name');
-            $depot = $request->request->get('depot');
-            $tags = $request->request->get('tags');
+            $file = $produit->getPhoto();
 
-            $produit->setName($name);
-            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
+            // Generate a unique name for the file before saving it
+            $fileName = 'photo_produit_'.$produit->getId().md5(uniqid()).'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            $file->move(
+                'bundles/search/images',
+                $fileName
+            );
+
+            // Update the 'brochure' property to store the PDF file name
+            // instead of its contents
+            $produit->setPhoto('bundles/search/images/'.$fileName);
+
+            $tags = $request->request->get('searchbundle_produit_tags');
             $produit->resetTags();
+
             foreach ($tags as $tag){
                 $tagobj = $tagrep->findOneByNom($tag);
                 if($tagobj == null){
@@ -217,8 +201,12 @@ class DefaultController extends Controller
                 }
                 $produit->addTag($tagobj);
             }
+
+            // ... persist the $product variable or any other work
+            $em->persist($produit);
             $em->flush();
-            return new Response($this->generateUrl('home'));
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
@@ -226,27 +214,5 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'produit' => $produit
         ));
-    }
-
-    /**
-     * Permet l'edition de la photo d'un produit déjà existant
-     *
-     * @Route("/edit/product/photo/{id}", name="editProductPhoto")
-     */
-    public function editProductPhoto($id, Request $request)
-    {
-        $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
-        $produit = $repository_produit->find($id);
-        if($request->isMethod('POST')){
-            $photo = $request->files->get('photo');
-            if($photo != null){
-                $nom = 'bundles/search/images/photo_produit_'.$produit->getId().'_'.uniqid(rand(), true);
-                move_uploaded_file($photo,$nom);
-                $produit->setPhoto($nom);
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
-            return $this->redirectToRoute('home');
-        }
     }
 }
