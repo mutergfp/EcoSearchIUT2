@@ -206,7 +206,7 @@ class DefaultController extends Controller
             $em->persist($produit);
             $em->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
