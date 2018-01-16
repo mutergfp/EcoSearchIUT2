@@ -3,7 +3,9 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <p id="gettagsproduct-path" class="hide">{{ path('gettagsproduct', {'id': produit.id})}}</p>
+    {% if produit is defined %}
+        <p id="gettagsproduct-path" class="hide">{{ path('gettagsproduct', {'id': produit.id})}}</p>
+    {% endif %}
     <div class="row">
         <div class="col s6 offset-s3">
             <h2 class="header">{{ title }}</h2>

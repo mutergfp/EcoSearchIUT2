@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
@@ -139,27 +140,41 @@ class DefaultController extends Controller
     /**
      * Permet la création d'un nouveau produit dans la base de données
      *
+     * @Security("has_role('ROLE_USER')")
      * @Route("/add/product", name="addProduct")
      */
     public function addProduct(Request $request) {
         $produit = new Produit();
+
+        $produit->setPhoto(null);
+
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
 
-        if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
 
-            $depotrep = $this->getDoctrine()->getRepository('SearchBundle:Depot');
-            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
 
-            $name = $request->request->get('name');
-            $photo = $request->request->get('photo');
-            $depot = $request->request->get('depot');
-            $tags = $request->request->get('tags');
+            $file = $produit->getPhoto();
 
-            $produit->setName($name);
-            $produit->setPhoto($photo);
-            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
+            // Generate a unique name for the file before saving it
+            $fileName = 'photo_produit_'.$produit->getId().'_'.md5(uniqid()).'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            $file->move(
+                'bundles/search/images',
+                $fileName
+            );
+
+            // Update the 'brochure' property to store the PDF file name
+            // instead of its contents
+            $produit->setPhoto('bundles/search/images/'.$fileName);
+
+            $tags = $request->request->get('searchbundle_produit_tags');
             $produit->resetTags();
+
             foreach ($tags as $tag){
                 $tagobj = $tagrep->findOneByNom($tag);
                 if($tagobj == null){
@@ -169,22 +184,25 @@ class DefaultController extends Controller
                 }
                 $produit->addTag($tagobj);
             }
+
+            // ... persist the $product variable or any other work
             $em->persist($produit);
             $em->flush();
-            return new Response($this->generateUrl('home'));
+
+            return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
-            'title'=> 'Nouveau produit',
+            'title' => 'Nouveau produit',
             'form' => $form->createView(),
-            'produit' => $produit
         ));
     }
 
     /**
-     * Permet l'edition de la photo d'un produit déjà existant
+     * Permet l'edition d'un produit déjà existant
      *
-     * @Route("/edit/product/photo/{id}", name="editProductPhoto")
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/edit/product/photo/{id}", name="editProduct")
      */
     public function editProductAction($id, Request $request) {
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
@@ -206,7 +224,7 @@ class DefaultController extends Controller
             $file = $produit->getPhoto();
 
             // Generate a unique name for the file before saving it
-            $fileName = 'photo_produit_'.$produit->getId().md5(uniqid()).'.'.$file->guessExtension();
+            $fileName = 'photo_produit_'.$produit->getId().'_'.md5(uniqid()).'.'.$file->guessExtension();
 
             // Move the file to the directory where brochures are stored
             $file->move(
