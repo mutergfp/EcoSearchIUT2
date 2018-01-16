@@ -19,8 +19,12 @@
             <div class="collapsible-body">
                 <p>Afin de pouvoir rejoindre notre communauté et nous aider vous devez préalablement vous inscire sur notre site</p>
                 <ul>
-                    <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
-                    <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+    {% if app.user is null %}
+        <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+        <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+    {% else %}
+        <li><strong>Vous êtes déjà connecté</strong></li>
+    {% endif %}
                 </ul>
             </div>
         </li>
