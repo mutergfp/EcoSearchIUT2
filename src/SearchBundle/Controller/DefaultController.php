@@ -160,6 +160,7 @@ class DefaultController extends Controller
     public function editProduct($id, Request $request) {
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
         $produit = $repository_produit->find($id);
+        $produit->setPhoto(null);
         if($produit == null){
             return $this->redirectToRoute('home');
         }
@@ -214,7 +215,7 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
             }
-            return $this->redirectToRoute('home');
+            //return $this->redirectToRoute('home');
         }
     }
 }

@@ -4,17 +4,22 @@ $(document).ready(function() {
     var $productPicture = $("#searchbundle_produit_photo");
     var $productRepo = $('.select-dropdown');
     var $productTags = $('#searchbundle_produit_tags');
-    var $saveButton = $('#searchbundle_save_button');
+    var $saveButton = $('#searchbundle_produit_save');
     var $getTagsURL = $('#tags-path');
     var $getTagsProduct = $("#gettagsproduct-path");
-    var $productForm = $('#searchbundle_produit_form');
+    var $productTagsSelect = $("<select name=\"searchbundle_produit_tags\" multiple='multiple'></select>").insertBefore($productTags);
+    var $productForm = $("form[name='searchbundle_produit']");
 
     // bind events
-    $saveButton.on('click', save);
+    $productForm.submit(function() {
+        fillSelectTags();
+        return true;
+    });
 
     // init chips
+    $productTags.material_chip();
+    getProductTagsData($getTagsProduct.text());
     getTagsData($getTagsURL.text());
-    getProductTagsData();
 
 
     function getTagsData(url) {
@@ -41,50 +46,46 @@ $(document).ready(function() {
             return prev;
         }, []);
 
-        /*return {
+        return {
             name: $productName.val(),
             photo: $productPicture.val(),
             depot: $productRepo.val(),
             tags: tagsData
-        }*/
-
-        return tagsData;
+        }
     }
 
-    function getProductTagsData() {
-        $.getJSON($getTagsProduct.text(), function(json) {
-            var data = json.reduce(function(prev, cur){
+    function getProductTagsData(url) {
+        $.getJSON(url, function(json) {
+            var tagsData = json.reduce(function(prev, cur){
                 prev.push({
                     tag: cur
                 });
                 return prev;
             }, []);
-            $productTags.material_chip({
-                data: data
-            });
+            setTimeout(function() {
+                $productTags.material_chip({
+                    data: tagsData
+                });
+            }, 100);
         });
     }
 
     function save(event) {
-        //console.log(getFormData());
-        var postData = new FormData($productForm);
-        console.log($productPicture[0].files[0]);
-        postData.append("name",  $productName.val());
-        postData.append("photo", $productPicture[0].files[0]);
-        postData.append("depot", $productRepo.val());
-        postData.append("tags", getFormData());
+        console.log(getFormData());
 
-
-        $.post(window.location.href, postData, function(url) {
-            window.location.href = url;
-        });
-
-        /*$.post(
+        $.post(
             window.location.href,
             getFormData(),
             function(url) {
-                window.location.href = url;
+                //window.location.href = url;
             }
-        );*/
+        );
+    }
+
+
+    function fillSelectTags() {
+        var tagsData = $productTags.material_chip('data').forEach(function(chip) {
+            $productTagsSelect.append("<option value='"+ chip.tag + "' selected='selected'>" + chip.tag + "</option>")
+        });
     }
 });
