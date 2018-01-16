@@ -28,8 +28,24 @@
     <div class="nav-wrapper">
         <a href="#" data-activates="slide-out" class="show-on-large button-collapse"><i class="material-icons">menu</i></a>
         <a href="{{ path('home') }}"><img src="{{ asset('bundles/core/images/EcoSearch_blanc.png') }}" alt="logo ecosearch" style="height: 30px; margin-top: 15px;"></a>
-        <div class="right">
-            <a class="right-align" href="#!user"><img class="circle right-align" src="{{ asset('bundles/core/images/user.png') }}" style="height: 50px; width: 50px; margin-top: 7px; margin-right: 10px;"></a>
+        <div class="right" style="margin-right: 15px;">
+            <a class='dropdown-button btn' href='#' data-activates='dropdownuser'>
+                {% if app.user is null %}
+                    Se connecter
+                {% else %}
+                    Connecté - {{ app.user.username }}
+                {% endif %}
+            </a>
+            <ul id='dropdownuser' class='dropdown-content'>
+                {% if app.user is null %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                    <li><a href="{{ path('fos_user_profile_edit') }}">Modifier profil</a></li>
+                    <li><a href="{{ path('fos_user_change_password') }}">Modifier mot de passe</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>
