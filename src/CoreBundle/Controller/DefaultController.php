@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
+     * Associe l'URL avec la page index.html.twig du CoreBundle
+     *
      * @Route("/" ,name="home")
      */
     public function indexAction()
@@ -16,6 +18,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Associe l'URL avec la page participateEx.html.twig du CoreBundle
+     *
      * @Route("/participate", name="participate")
      */
     public function participateAction()
