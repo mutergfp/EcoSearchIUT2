@@ -15,19 +15,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class DefaultController extends Controller
 {
     /**
-     * Attibut représentant tout les tags d'un produit
+     * Attibut représentant tous les tags existants
      *
      * @var $allTags
      */
     private $allTags;
 
     /**
-     *      Récupère tout les tags d'un produit et les donnes à l'attribut allTags
+     *      Récupère tout les tags existants
      *
-     * @return array
+     *  @return array
      *      Tags d'un produit
      */
-
     private function getAllTags()
     {
         if($this->allTags == null){
@@ -37,6 +36,9 @@ class DefaultController extends Controller
         return $this->allTags;
     }
 
+    /*
+     * Recherche les tags ressemblants à un String
+     */
     private function rechercherTagsRessemblants($tag_string){
         $percents = array();
         $tags_found = array();
@@ -55,13 +57,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * Compare le tag voulu avec une liste de tag, et suggère une correction
+     * Cherche le tag le plus ressemblant à un string
      *
      * @param $tag_string
      *      Tag taper sur la barre de recherche du site
-     * @return array
-     *      Liste de tags
-     *
+     * @return Tag
+     *      Le tag le plus ressemblant
      */
     private function rechercherLePlusRessemblant($tag_string){
         $res =  $this->rechercherTagsRessemblants($tag_string);
@@ -73,6 +74,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Route permettant à un script de récupèrer la liste de tous les tags
+     *
      * @Route("/get/tags", name="gettags")
      */
     public function tagsAction()
@@ -92,7 +95,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Associe l'URL du produit trouvé en fonction du tag taper la page  du SearchBundle
+     * Route permettant à un script de récupèrer tous les tags associés à un produit
      *
      * @Route("/get/tags/product/{id}", name="gettagsproduct")
      */
