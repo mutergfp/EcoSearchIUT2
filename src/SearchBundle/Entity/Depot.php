@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Depot
 {
     /**
+     * id d'un dépot
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +24,8 @@ class Depot
     private $id;
 
     /**
+     * type d'un dépot
+     *
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
@@ -29,6 +33,7 @@ class Depot
     private $type;
 
     /**
+     * couleur représentant le dépot
      * @var string
      *
      * @ORM\Column(name="couleur", type="string", length=255)
@@ -36,6 +41,7 @@ class Depot
     private $couleur;
 
     /**
+     * couleur d'un bouton associé avec la couleur représentant le dépot
      * @var string
      *
      * @ORM\Column(name="couleursec", type="string", length=255)
@@ -124,6 +130,9 @@ class Depot
         return $this->couleursec;
     }
 
+    /**
+     * Depot constructor.
+     */
     function __construct()
     {
         $this->couleur='white';

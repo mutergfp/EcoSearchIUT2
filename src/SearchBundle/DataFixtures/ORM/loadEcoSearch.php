@@ -10,7 +10,11 @@ use SearchBundle\Entity\Tag;
 
 class loadEcoSearch implements FixtureInterface
 	{
-
+    /**
+     * Fait la création des objets dans la base de données
+     *
+     * @param ObjectManager $manager
+     */
 	  public function load(ObjectManager $manager)
 
 	  {

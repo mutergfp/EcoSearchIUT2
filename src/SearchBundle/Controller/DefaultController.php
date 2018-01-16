@@ -14,8 +14,19 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
 
+    /**
+     * Attibut représentant tout les tags d'un produit
+     *
+     * @var $allTags
+     */
     private $allTags;
 
+    /**
+     *      Récupère tout les tags d'un produit et les donnes à l'attribut allTags
+     *
+     * @return array
+     *      Tags d'un produit
+     */
     private function getAllTags()
     {
         if($this->allTags == null){
@@ -25,6 +36,15 @@ class DefaultController extends Controller
         return $this->allTags;
     }
 
+    /**
+     * Compare le tag voulu avec une liste de tag, et suggère une correction
+     *
+     * @param $tag_string
+     *      Tag taper sur la barre de recherche du site
+     * @return array
+     *      Liste de tags
+     *
+     */
     private function rechercherTagsRessemblants($tag_string){
         $percents = array();
         $tags_found = array();
@@ -52,6 +72,8 @@ class DefaultController extends Controller
     }
 
     /**
+     *
+     *
      * @Route("/get/tags", name="gettags")
      */
     public function tagsAction()
@@ -71,6 +93,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Associe l'URL du produit trouvé en fonction du tag taper la page  du SearchBundle
+     *
      * @Route("/get/tags/product/{id}", name="gettagsproduct")
      */
     public function productTagsAction($id){
@@ -84,6 +108,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Permet l'action de rechercher un produit
+     *
      * @Route("/{research}", name="search", defaults={"research" = ""})
      */
     public function searchAction($research)
@@ -112,6 +138,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Permet la création d'un nouveau produit dans la base de données
+     *
      * @Route("/add/product", name="addProduct")
      */
     public function addProduct(Request $request) {
@@ -155,6 +183,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Permet l'edition des produits déjà existant de la base de données
+     *
      * @Route("/edit/product/{id}", name="editProduct")
      */
     public function editProduct($id, Request $request) {
@@ -199,6 +229,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Permet l'edition de la photo d'un produit déjà existant
+     *
      * @Route("/edit/product/photo/{id}", name="editProductPhoto")
      */
     public function editProductPhoto($id, Request $request)

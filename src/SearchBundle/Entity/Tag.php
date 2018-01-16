@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag
 {
     /**
+     * id d'un tag
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +24,8 @@ class Tag
     private $id;
 
     /**
+     * nom d'un tag
+     *
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)

@@ -12,7 +12,12 @@ use SearchBundle\SearchBundle;
 class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
+    /**
+     * Permet la récuperation d'un produit en fonction des tags selectionnés
+     *
+     * @param $tags
+     * @return array
+     */
     public function getByTags($tags){
         $products = array();
         foreach ($tags as $tag){
@@ -43,6 +48,13 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
         return $res;
     }
 
+    /**
+     * Valide ou non la présence de produit après recherche du produit
+     *
+     * @param $produit
+     * @param $tab
+     * @return bool
+     */
     private function chercher($produit,&$tab){
         foreach ($tab as $item){
             if($produit->getId()==$item->getId()){

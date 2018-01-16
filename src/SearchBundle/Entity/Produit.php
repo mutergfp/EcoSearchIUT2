@@ -14,6 +14,8 @@ class Produit
 {
 
     /**
+     * id d'un produit
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,17 +25,23 @@ class Produit
     private $id;
 
     /**
+     * id du dépot d'un produit
+     *
      * @ORM\ManyToOne(targetEntity="SearchBundle\Entity\Depot")
      * @ORM\JoinColumn(nullable=false)
      */
     private $depot;
 
     /**
+     * tags du produit
+     *
      * @ORM\ManyToMany(targetEntity="SearchBundle\Entity\Tag", cascade={"persist"})
      */
     private $tags;
 
     /**
+     * nom d'un produit
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -41,6 +49,8 @@ class Produit
     private $name;
 
     /**
+     * photo d'un produit
+     *
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=1000, nullable=true)

@@ -25,7 +25,9 @@ class ProduitType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('depot', ChoiceType::class, array( 'choices' => $choices));
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
