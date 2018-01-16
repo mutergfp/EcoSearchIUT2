@@ -4,6 +4,7 @@ namespace SearchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,12 +25,15 @@ class ProduitType extends AbstractType
 
         $builder
             ->add('name', TextType::class)
-            ->add('depot', ChoiceType::class, array( 'choices' => $choices));
-    }
+            ->add('depot', ChoiceType::class, array( 'choices' => $choices))
+            ->add('photo', FileType::class)
+            ->add('save', SubmitType::class);
 
+    }
+    
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
