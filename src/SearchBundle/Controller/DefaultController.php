@@ -181,7 +181,7 @@ class DefaultController extends Controller
 
             // Move the file to the directory where brochures are stored
             $file->move(
-                $this->getParameter('bundles/search/images'),
+                'bundles/search/images',
                 $fileName
             );
 
@@ -189,7 +189,7 @@ class DefaultController extends Controller
             // instead of its contents
             $produit->setPhoto('bundles/search/images/'.$fileName);
 
-            $tags = $request->request->get('tags');
+            $tags = $request->request->get('searchbundle_produit_tags');
             $produit->resetTags();
 
             foreach ($tags as $tag){
