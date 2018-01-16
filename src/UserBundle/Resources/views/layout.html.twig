@@ -1,77 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="{{ asset('bundles/core/css/layout.css') }}">
-    {% block style %}{% endblock %}
-    <title>{% block title %}{% endblock %} - EcoSearch</title>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-    <body>
-		<header>
-		{% block header %}{% endblock %}
-		</header>
-		<nav class="green">
-			<ul class="side-nav green" id="slide-out" style="padding-top: 10px">
-				<li class="green darken-2" style="margin-top: -10px; margin-bottom: -8px;"><a href="{{ path('home') }}" style="color: white"><i class="material-icons">home</i>Accueil</a></li>
-				<li><div class="divider gray" style="margin-bottom: 10px"></div></li>
-				<li><a class="subheader" style=" color: white">Communauté</a></li>
-				<li><a href="{{ path('participate') }}" style=" color: white"><i class="material-icons">add_circle</i>Participer</a></li>
-				<li><div class="divider gray" style="margin-bottom: 10px"></div></li>
-			</ul>
-			<div class="nav-wrapper">
-				<a href="#" data-activates="slide-out" class="show-on-large button-collapse"><i class="material-icons">menu</i></a>
-				<a href="{{ path('home') }}"><img src="{{ asset('bundles/core/images/EcoSearch_blanc.png') }}" alt="logo ecosearch" style="height: 30px; margin-top: 15px;"></a>
-				<div class="right" style="margin-right: 15px;">
-					<a class='dropdown-button btn' href='#' data-activates='dropdownuser'>
-						{% if app.user is null %}
-							Se connecter
-						{% else %}
-							Connecté - {{ app.user.username }}
-						{% endif %}
-					</a>
-					<ul id='dropdownuser' class='dropdown-content'>
-						{% if app.user is null %}
-							<li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
-							<li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-						{% else %}
-							<li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
-							<li><a href="{{ path('fos_user_profile_edit') }}">Modifier profil</a></li>
-							<li><a href="{{ path('fos_user_change_password') }}">Modifier mot de passe</a></li>
-						{% endif %}
-					</ul>
-				</div>
-			</div>
-		</nav>
-	<div class="content">
-		<div class="container">
-			<div>
-				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-					{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-					<a href="{{ path('fos_user_security_logout') }}">
-						{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-					</a>
-				{% else %}
-					<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-				{% endif %}
-			</div>
+{% extends "CoreBundle::layout.html.twig" %}
 
-			{% for type, messages in app.session.flashBag.all %}
-				{% for message in messages %}
-					<div class="{{ type }}">
-						{{ message|trans({}, 'FOSUserBundle') }}
-					</div>
-				{% endfor %}
-			{% endfor %}
+{% block title %}Gestion utilisateur{% endblock %}
 
-			<div>
-				{% block fos_user_content %}
-				{% endblock fos_user_content %}
-			</div>
-		</div>
-	</div>
-    </body>
-</html>
+{% block content %}
+    <br><br>
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+{% endblock %}
