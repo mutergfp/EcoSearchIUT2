@@ -149,7 +149,7 @@ class DefaultController extends Controller
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
             'title'=> 'Nouveau produit',
-           'form' => $form->createView(),
+            'form' => $form->createView(),
             'produit' => $produit
         ));
     }
@@ -157,27 +157,41 @@ class DefaultController extends Controller
     /**
      * @Route("/edit/product/{id}", name="editProduct")
      */
-    public function editProduct($id, Request $request) {
+    public function editProductAction($id, Request $request) {
         $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
         $produit = $repository_produit->find($id);
         if($produit == null){
             return $this->redirectToRoute('home');
         }
+        $produit->setPhoto(null);
+
         $form = $this->get('form.factory')->create(ProduitType::class, $produit, array('depots'=> $this->getDoctrine()->getRepository('SearchBundle:Depot')->findAll()));
 
-        if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
 
-            $depotrep = $this->getDoctrine()->getRepository('SearchBundle:Depot');
-            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $tagrep = $this->getDoctrine()->getRepository('SearchBundle:Tag');
 
-            $name = $request->request->get('name');
-            $depot = $request->request->get('depot');
+            $file = $produit->getPhoto();
+
+            // Generate a unique name for the file before saving it
+            $fileName = 'photo_produit_'.$produit->getId().md5(uniqid()).'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            $file->move(
+                $this->getParameter('bundles/search/images'),
+                $fileName
+            );
+
+            // Update the 'brochure' property to store the PDF file name
+            // instead of its contents
+            $produit->setPhoto('bundles/search/images/'.$fileName);
+
             $tags = $request->request->get('tags');
-
-            $produit->setName($name);
-            $produit->setDepot($this->getDoctrine()->getRepository('SearchBundle:Depot')->findOneByType($depot));
             $produit->resetTags();
+
             foreach ($tags as $tag){
                 $tagobj = $tagrep->findOneByNom($tag);
                 if($tagobj == null){
@@ -187,8 +201,12 @@ class DefaultController extends Controller
                 }
                 $produit->addTag($tagobj);
             }
+
+            // ... persist the $product variable or any other work
+            $em->persist($produit);
             $em->flush();
-            return new Response($this->generateUrl('home'));
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('SearchBundle:Default:formProduct.html.twig' , array(
@@ -196,25 +214,5 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'produit' => $produit
         ));
-    }
-
-    /**
-     * @Route("/edit/product/photo/{id}", name="editProductPhoto")
-     */
-    public function editProductPhoto($id, Request $request)
-    {
-        $repository_produit = $this->getDoctrine()->getRepository('SearchBundle:Produit');
-        $produit = $repository_produit->find($id);
-        if($request->isMethod('POST')){
-            $photo = $request->files->get('photo');
-            if($photo != null){
-                $nom = 'bundles/search/images/photo_produit_'.$produit->getId().'_'.uniqid(rand(), true);
-                move_uploaded_file($photo,$nom);
-                $produit->setPhoto($nom);
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
-            return $this->redirectToRoute('home');
-        }
     }
 }
