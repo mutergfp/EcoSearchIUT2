@@ -7,7 +7,7 @@ $(document).ready(function() {
     var $saveButton = $('#searchbundle_produit_save');
     var $getTagsURL = $('#tags-path');
     var $getTagsProduct = $("#gettagsproduct-path");
-    var $productTagsSelect = $("<select name=\"searchbundle_produit_tags\" multiple='multiple'></select>").insertBefore($productTags);
+    var $productTagsSelect = $("<select name='searchbundle_produit_tags[]' multiple='multiple'></select>").insertBefore($productTags);
     var $productForm = $("form[name='searchbundle_produit']");
 
     // bind events
