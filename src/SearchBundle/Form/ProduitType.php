@@ -30,7 +30,7 @@ class ProduitType extends AbstractType
             ->add('save', SubmitType::class);
 
     }
-    
+
     /**
     * {@inheritdoc}
     */
