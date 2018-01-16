@@ -27,7 +27,7 @@ class ProduitType extends AbstractType
             ->add('name', TextType::class)
             ->add('depot', ChoiceType::class, array( 'choices' => $choices))
             ->add('photo', FileType::class)
-            ->add('save', SubmitType::class);
+            ->add('sauvegarder', SubmitType::class);
 
     }
 

@@ -1,8 +1,8 @@
 $(document).ready(function() {
     // cache DOM
     var $productTags = $('#searchbundle_produit_tags');
-    var $getTagsURL = $('#tags-path');
     var $getTagsProduct = $("#gettagsproduct-path");
+    var $getTagsURL = $('#tags-path');
     var $productTagsSelect = $("<select name='searchbundle_produit_tags[]' multiple='multiple'></select>").insertBefore($productTags);
     var $productForm = $("form[name='searchbundle_produit']");
 
@@ -12,10 +12,13 @@ $(document).ready(function() {
         return true;
     });
 
+
+
     // init chips
     $productTags.material_chip();
     getProductTagsData($getTagsProduct.text());
     getTagsData($getTagsURL.text());
+
 
 
     function getTagsData(url) {
